@@ -5,6 +5,11 @@ export async function getCartById(cartId) {
   return result
 }
 
+export async function getCartsByUserId(userId) {
+  const result = await axios.get('/cart/list/user/' + userId)
+  return result
+}
+
 export async function editCartById(cartId) {
   const result = await axios.put('/cart/' + cartId)
   return result

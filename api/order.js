@@ -5,7 +5,7 @@ export async function getOrderById(orderId) {
   return result
 }
 
-export async function getOrders(userId) {
+export async function getOrdersByUserId(userId) {
   const result = await axios.get('/order/list/user/' + userId)
   return result
 }

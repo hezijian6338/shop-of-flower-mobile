@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { getUser } from '@/api/user'
+// import { getUser } from '@/api/user'
 
 export default {
   asyncData({ $axios }) {

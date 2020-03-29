@@ -25,6 +25,7 @@ export const getters = {
     return state.userInfo === null
       ? null
       : {
+          id: state.userInfo.id,
           phone: state.userInfo.phone,
           name: state.userInfo.name,
           role: state.userInfo.role,

@@ -27,8 +27,13 @@ export default {
     }
   },
   methods: {
-    async editUser() {
-      const result = await editUserById(this.user)
+    async editUser(userInfo) {
+      // FIXME: 服务端如果修改失败, 不返回数据, 只从返回的状态码判断
+      const result = await editUserById(userInfo)
+      // 判断是否为状态码 500后的改编返回数据结构 { code: xxx, info: 'xxx' }
+      if (Reflect.has(result, 'code')) {
+        // result.info为执行出错的信息
+      }
     }
   }
 }

@@ -13,6 +13,15 @@ export default (app) => {
   // 返回回调
   axios.onResponse((res) => {
     console.log('原始数据信息: ' + res)
+    if (res !== null) {
+      const code = res.code
+      if (code === 500) {
+        return { code: 500, info: '执行错误' }
+      }
+      if (code === 200) {
+        return res.data
+      }
+    }
     return res.data
   })
 

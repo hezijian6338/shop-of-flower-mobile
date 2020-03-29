@@ -3,7 +3,9 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import { login } from '../../api/user'
+
 export default {
   data() {
     return {
@@ -22,13 +24,28 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapActions({
+      StateLogin: 'Login'
+    }),
+    ...mapGetters(['CurrentPhone', 'CurrentInfo'])
+  },
   methods: {
+    // TODO: 两种方式登陆
     login(phone, password) {
-      const result = login({ phone, password })
-      if (Reflect.has(result, 'code')) {
-        // result.info 返回错误信息
+      // 先用 Vuex进行登录
+      this.StateLogin({ phone, password })
+
+      // 如果
+      if (this.GetPhone === null) {
+        const result = login({ phone, password })
+        if (Reflect.has(result, 'code')) {
+          // result.info 返回错误信息
+        } else {
+          this.userInfo = result
+        }
       } else {
-        this.userInfo = result
+        // 登陆成功
       }
     }
   }

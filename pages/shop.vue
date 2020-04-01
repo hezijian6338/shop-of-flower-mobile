@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="w-screen type">
+    <!-- <div class="w-screen type">
       <div class="inline-block w-90 type-shop px-4">1</div>
       <div class="inline-block w-90 type-shop px-4">9</div>
       <div class="inline-block w-90 type-shop px-4">{{ ip }}</div>
-    </div>
+    </div> -->
   </div>
 </template>
 

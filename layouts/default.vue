@@ -1,55 +1,77 @@
 <template>
   <div>
-    <nuxt />
+    <div class="contain">
+      <div class="logo float-left"></div>
+      <div class="avatar float-right"></div>
+      <div class="main-contain">
+        <nuxt />
+      </div>
+      <div class="contain-button float-left"></div>
+      <div class="contain-bottom float-left">
+        <span>发现</span>
+        <span>我的</span>
+        <!-- <ul>
+          <li>发现</li>
+        </ul>
+        <ul>
+          <li>我的</li>
+        </ul> -->
+      </div>
+    </div>
   </div>
 </template>
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+<style scoped>
+.contain {
+  background: rgba(255, 255, 255, 1);
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
+.logo {
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 132px;
+  height: 42px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 18px 18px 18px 24px;
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
+.avatar {
+  margin-top: 16px;
+  margin-right: 13px;
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(255, 255, 255, 1);
+  border-radius: 50%;
 }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
+.main-contain {
+  margin-left: 49px;
+  /* padding-bottom: 50px; */
+  width: 326px;
+  height: 94vh;
+  background: rgba(211, 227, 229, 1);
+  border-radius: 0px 0px 0px 25px;
 }
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
+.contain-button {
+  margin-left: 12px;
+  width: 38px;
+  height: 38px;
+  background: rgba(243, 173, 173, 1);
+  border-radius: 10px;
 }
 
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+.contain-bottom {
+  width: 325px;
+  height: 5vh;
+  line-height: 5vh;
+  text-align: center;
+}
+
+.contain-bottom > span {
+  font-size: 18px;
+  font-family: Adobe Heiti Std;
+  font-weight: bold;
+  color: rgba(174, 200, 187, 1);
 }
 </style>

@@ -4,7 +4,9 @@
       <div class="logo float-left"></div>
       <div class="avatar float-right"></div>
       <div class="main-contain">
-        <nuxt />
+        <div class="show-area relative">
+          <nuxt />
+        </div>
       </div>
       <div class="contain-button float-left"></div>
       <div class="contain-bottom float-left">
@@ -42,6 +44,11 @@
   height: 48px;
   border: 3px solid rgba(255, 255, 255, 1);
   border-radius: 50%;
+}
+
+.show-area {
+  padding-top: 86px;
+  padding-left: 17px;
 }
 
 .main-contain {

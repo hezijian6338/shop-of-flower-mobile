@@ -14,10 +14,18 @@
         <img src="~/assets/png/index.png" />
       </div>
       <div class="contain-bottom float-left">
-        <div class="button" :class="{ choose: pageInDis }">
+        <div
+          class="button"
+          :class="{ choose: pageInDis }"
+          @click="pageSwitch('dis')"
+        >
           <span>发现</span>
         </div>
-        <div class="button" :class="{ choose: pageInMine }">
+        <div
+          class="button"
+          :class="{ choose: pageInMine }"
+          @click="pageSwitch('mine')"
+        >
           <span class="">我的</span>
         </div>
       </div>
@@ -29,8 +37,23 @@
 export default {
   data() {
     return {
-      pageInMine: true,
-      pageInDis: false
+      pageInMine: false,
+      pageInDis: true
+    }
+  },
+  methods: {
+    pageSwitch(page) {
+      if (page === 'dis') {
+        this.$router.push('/shop')
+        this.pageInDis = true
+        this.pageInMine = false
+      }
+      if (page === 'mine') {
+        // FIXME: 需要检查是否已经登陆
+        this.$router.push('/user/5')
+        this.pageInMine = true
+        this.pageInDis = false
+      }
     }
   }
 }

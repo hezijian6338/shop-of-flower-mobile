@@ -32,10 +32,22 @@
       </div> -->
     </div>
     <div class="location">
-      <span>广东省，广州市，南沙区</span>
+      <div class="ml-4 mt-2" style="float: left;">
+        <img
+          style="width: 16.5px; height: 24px"
+          src="~assets/png/locator.png"
+        />
+      </div>
+      <div class="location-info ml-4">
+        <span>广东省，广州市，南沙区</span>
+      </div>
     </div>
     <div class="limit-list overflow-x-scroll overflow-y-hidden">
-      <div class="limit-item"></div>
+      <div class="limit-item">
+        <div class="itme-photo">
+          <img src="~/assets/png/limit1.png" />
+        </div>
+      </div>
       <div class="limit-item"></div>
       <div class="limit-item"></div>
       <div class="limit-item"></div>
@@ -97,7 +109,11 @@ export default {
   border-radius: 10px 10px 10px 10px;
 }
 
-.location > span {
+.location-info {
+  float: left;
+}
+
+.location-info > span {
   width: 130px;
   height: 12px;
   line-height: 45px;
@@ -119,6 +135,12 @@ export default {
   height: 103px;
   background: rgba(255, 255, 255, 1);
   border-radius: 10px;
+}
+
+.itme-photo {
+  margin: 12px 0 12px 12px;
+  width: 80px;
+  height: 80px;
 }
 
 .current-list {

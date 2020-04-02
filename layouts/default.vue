@@ -8,10 +8,12 @@
           <nuxt />
         </div>
       </div>
-      <div class="contain-button float-left"></div>
+      <div class="contain-button float-left">
+        <img src="~/assets/png/index.png" />
+      </div>
       <div class="contain-bottom float-left">
         <span>发现</span>
-        <span>我的</span>
+        <span class="ml-16">我的</span>
         <!-- <ul>
           <li>发现</li>
         </ul>

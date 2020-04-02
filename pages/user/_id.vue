@@ -1,5 +1,26 @@
 <template>
-  <div></div>
+  <div>
+    <div class="user-info">
+      <div class="avatar-big"></div>
+      <div class="username w-16">
+        <p>Reeyoung</p>
+      </div>
+      <div class="user-option h-10">
+        <div class="pay mr-10">
+          <img src="~/assets/png/pay.png" />
+        </div>
+        <div class="service mr-10">
+          <img src="~/assets/png/service.png" />
+        </div>
+        <div class="comment mr-10">
+          <img src="~/assets/png/order.png" />
+        </div>
+        <div class="finish">
+          <img src="~/assets/png/finish.png" />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -38,3 +59,50 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.user-info {
+  margin: 0 auto;
+  width: 298px;
+  height: 185px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+}
+
+.avatar-big {
+  margin: 0 auto 9px;
+  width: 81px;
+  height: 81px;
+  border: rgba(255, 255, 255, 1);
+}
+
+.username {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.username > p {
+  width: 67px;
+  height: 15px;
+  font-size: 15px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(0, 0, 0, 1);
+}
+
+.user-option {
+  margin: 15px auto 0;
+  width: 211px;
+}
+
+.user-option > div {
+  display: inline-block;
+  width: 19.5px;
+  height: 19.5px;
+}
+
+.user-option > div > img {
+  width: 19.5px;
+  height: 19.5px;
+}
+</style>

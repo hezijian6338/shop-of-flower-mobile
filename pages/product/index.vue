@@ -47,6 +47,11 @@ export default {
 </script>
 
 <style scoped>
+.product-contain {
+  margin: 0 auto;
+  width: 16rem;
+}
+
 .product-title {
   text-align: center;
 }

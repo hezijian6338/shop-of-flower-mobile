@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="contain">
-      <div class="logo float-left"></div>
+      <div class="logo float-left">
+        <img class="object-bottom pt-2" src="~/assets/png/logo2.png" />
+      </div>
       <div class="avatar float-right"></div>
       <div class="main-contain">
         <div class="show-area relative">
@@ -12,18 +14,27 @@
         <img src="~/assets/png/index.png" />
       </div>
       <div class="contain-bottom float-left">
-        <span>发现</span>
-        <span class="ml-16">我的</span>
-        <!-- <ul>
-          <li>发现</li>
-        </ul>
-        <ul>
-          <li>我的</li>
-        </ul> -->
+        <div class="button" :class="{ choose: pageInDis }">
+          <span>发现</span>
+        </div>
+        <div class="button" :class="{ choose: pageInMine }">
+          <span class="">我的</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      pageInMine: true,
+      pageInDis: false
+    }
+  }
+}
+</script>
 
 <style scoped>
 .contain {
@@ -50,7 +61,7 @@
 
 .show-area {
   padding-top: 86px;
-  padding-left: 17px;
+  /* padding-left: 17px; */
 }
 
 .main-contain {
@@ -77,10 +88,40 @@
   text-align: center;
 }
 
-.contain-bottom > span {
+/* .contain-bottom > span {
   font-size: 18px;
   font-family: Adobe Heiti Std;
   font-weight: bold;
   color: rgba(174, 200, 187, 1);
+} */
+
+.button {
+  margin-top: 10px;
+  display: inline-block;
+  width: 101px;
+  height: 3vh;
+  line-height: 3vh;
+  border-radius: 10px;
+}
+
+.button > span {
+  margin: 0 auto;
+  font-size: 18px;
+  font-family: Adobe Heiti Std;
+  font-weight: bold;
+  color: rgba(174, 200, 187, 1);
+}
+
+.choose {
+  background: rgba(211, 227, 229, 1);
+}
+
+.choose > span {
+  width: 35px;
+  height: 17px;
+  font-size: 18px;
+  font-family: Adobe Heiti Std;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 1);
 }
 </style>

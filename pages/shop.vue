@@ -6,10 +6,30 @@
       <div class="inline-block w-90 type-shop px-4">{{ ip }}</div>
     </div> -->
     <div class="product-list overflow-x-scroll overflow-y-hidden">
-      <div class="product mr-3"></div>
-      <div class="product mr-3"></div>
-      <div class="product mr-3"></div>
-      <div class="product mr-3"></div>
+      <div class="product mr-3">
+        <img
+          class="object-center w-16 h-16 style: padding-top: 8px"
+          src="~/assets/png/flower1.png"
+        />
+      </div>
+      <div class="product mr-3">
+        <img
+          class="object-bottom w-16 h-16 style: padding-top: 8px"
+          src="~/assets/png/flower2.png"
+        />
+      </div>
+      <div class="product mr-3">
+        <img
+          class="object-bottom w-16 h-16 style: padding-top: 8px"
+          src="~/assets/png/flower3.png"
+        />
+      </div>
+      <!-- <div class="product mr-3">
+        <img
+          class="object-bottom style: padding-top: 8px"
+          src="~/assets/png/flower1.png"
+        />
+      </div> -->
     </div>
     <div class="location">
       <span>广东省，广州市，南沙区</span>
@@ -45,6 +65,11 @@ export default {
 </script>
 
 <style scoped>
+.main {
+  margin: 0 auto;
+  width: 82vw;
+}
+
 .product-list {
   /* padding-top: 86px;
   padding-left: 17px; */
@@ -58,6 +83,10 @@ export default {
   height: 90px;
   background: rgba(255, 255, 255, 1);
   border-radius: 10px;
+}
+
+.product > img {
+  margin: 8px auto;
 }
 
 .location {

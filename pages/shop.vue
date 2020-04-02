@@ -21,6 +21,12 @@
       <div class="limit-item"></div>
       <div class="limit-item"></div>
     </div>
+    <div class="current-list overflow-x-scroll overflow-y-hidden">
+      <div class="current-item"></div>
+      <div class="current-item"></div>
+      <div class="current-item"></div>
+      <div class="current-item"></div>
+    </div>
   </div>
 </template>
 
@@ -82,6 +88,20 @@ export default {
   display: inline-block;
   width: 214px;
   height: 103px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+}
+
+.current-list {
+  margin-top: 35px;
+  white-space: nowrap;
+}
+
+.current-item {
+  margin-right: 34px;
+  display: inline-block;
+  width: 145px;
+  height: 136px;
   background: rgba(255, 255, 255, 1);
   border-radius: 10px;
 }

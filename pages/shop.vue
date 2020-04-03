@@ -44,8 +44,14 @@
     </div>
     <div class="limit-list overflow-x-scroll overflow-y-hidden">
       <div class="limit-item">
-        <div class="itme-photo">
+        <div class="item-photo">
           <img src="~/assets/png/limit1.png" />
+        </div>
+        <div class="item-name">
+          <span>呆萌精灵-泰迪菊 10 枝</span>
+        </div>
+        <div class="item-price">
+          <span>¥25.90</span>
         </div>
       </div>
       <div class="limit-item"></div>
@@ -137,10 +143,40 @@ export default {
   border-radius: 10px;
 }
 
-.itme-photo {
+.item-photo {
   margin: 12px 0 12px 12px;
+  float: left;
   width: 80px;
   height: 80px;
+}
+
+.item-name {
+  margin-top: 30px;
+  float: left;
+}
+
+.item-name > span {
+  width: 92px;
+  height: 10px;
+  font-size: 9px;
+  font-family: Adobe Heiti Std;
+  font-weight: bold;
+  color: rgba(58, 57, 57, 1);
+}
+
+.item-price {
+  width: 120px;
+  float: left;
+  text-align: center;
+}
+
+.item-price > span {
+  width: 24px;
+  height: 7px;
+  font-size: 8px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(255, 0, 0, 1);
 }
 
 .current-list {
@@ -156,6 +192,7 @@ export default {
   background: rgba(255, 255, 255, 1);
   border-radius: 10px;
 }
+
 /* .type {
   height: 90px;
 }

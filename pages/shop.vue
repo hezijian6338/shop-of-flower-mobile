@@ -11,18 +11,21 @@
           class="object-center w-16 h-16 style: padding-top: 8px"
           src="~/assets/png/flower1.png"
         />
+        <span>单品花束</span>
       </div>
       <div class="product mr-3">
         <img
           class="object-bottom w-16 h-16 style: padding-top: 8px"
           src="~/assets/png/flower2.png"
         />
+        <span>混合花束</span>
       </div>
       <div class="product mr-3">
         <img
           class="object-bottom w-16 h-16 style: padding-top: 8px"
           src="~/assets/png/flower3.png"
         />
+        <span>绿植多肉</span>
       </div>
       <!-- <div class="product mr-3">
         <img
@@ -60,6 +63,17 @@
       <div class="limit-item"></div>
     </div>
     <div class="current-list overflow-x-scroll overflow-y-hidden">
+      <div class="current-item">
+        <div class="current-item-photo">
+          <img src="~/assets/png/current.png" />
+        </div>
+        <div class="current-item-name">
+          <p>「清溪」初春元气主题花</p>
+        </div>
+        <div class="current-item-price">
+          <p>¥49.00</p>
+        </div>
+      </div>
       <div class="current-item"></div>
       <div class="current-item"></div>
       <div class="current-item"></div>
@@ -91,7 +105,7 @@ export default {
 .product-list {
   /* padding-top: 86px;
   padding-left: 17px; */
-  height: 91px;
+  /* height: 91px; */
   white-space: nowrap;
 }
 
@@ -99,12 +113,25 @@ export default {
   display: inline-block;
   width: 90px;
   height: 90px;
+  text-align: center;
   background: rgba(255, 255, 255, 1);
   border-radius: 10px;
 }
 
 .product > img {
-  margin: 8px auto;
+  margin: 5px auto 0;
+  width: 48.5px;
+  height: 48.5px;
+}
+
+.product > span {
+  margin: 0 auto;
+  width: 47px;
+  height: 12px;
+  font-size: 12px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(0, 0, 0, 1);
 }
 
 .location {
@@ -191,6 +218,36 @@ export default {
   height: 136px;
   background: rgba(255, 255, 255, 1);
   border-radius: 10px;
+}
+
+.current-item-photo {
+  margin: 7px auto 2px;
+  width: 93px;
+  height: 93px;
+}
+
+.current-item-name > p {
+  margin: 0 auto;
+  width: 135px;
+  height: 9px;
+  font-size: 9px;
+  font-family: Adobe Heiti Std;
+  font-weight: bold;
+  color: rgba(58, 57, 57, 1);
+}
+
+.current-item-price {
+  margin: 7px auto 2px;
+}
+
+.current-item-price > p {
+  margin: 0 auto;
+  width: 40px;
+  height: 7px;
+  font-size: 8px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(194, 191, 191, 1);
 }
 
 /* .type {

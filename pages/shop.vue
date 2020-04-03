@@ -1,12 +1,7 @@
 <template>
   <div class="main">
-    <!-- <div class="w-screen type">
-      <div class="inline-block w-90 type-shop px-4">1</div>
-      <div class="inline-block w-90 type-shop px-4">9</div>
-      <div class="inline-block w-90 type-shop px-4">{{ ip }}</div>
-    </div> -->
     <div class="product-list overflow-x-scroll overflow-y-hidden">
-      <div class="product mr-3">
+      <div class="product mr-3" @click="toTagPage()">
         <img
           class="object-center w-16 h-16 style: padding-top: 8px"
           src="~/assets/png/flower1.png"
@@ -27,12 +22,6 @@
         />
         <span>绿植多肉</span>
       </div>
-      <!-- <div class="product mr-3">
-        <img
-          class="object-bottom style: padding-top: 8px"
-          src="~/assets/png/flower1.png"
-        />
-      </div> -->
     </div>
     <div class="location">
       <div class="ml-4 mt-2" style="float: left;">
@@ -83,15 +72,19 @@
 </template>
 
 <script>
-// import { getUser } from '@/api/user'
+import { getTagList } from '@/api/tag'
 
 export default {
-  asyncData({ $axios }) {
-    // const ip = await $axios.$get('http://icanhazip.com')
-    // const ip = await getUser(5)
-    const ip = 5
-    // console.log(userId)
-    return { ip }
+  async asyncData({ params }) {
+    let tagList = []
+    tagList = await getTagList()
+
+    return { tagList }
+  },
+  methods: {
+    toTagPage(tagName) {
+      this.$router.push('/product/tag/' + tagName)
+    }
   }
 }
 </script>

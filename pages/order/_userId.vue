@@ -28,6 +28,11 @@ export default {
       },
       orderList: Array
     }
+  },
+  methods: {
+    toPageOrder(orderId) {
+      this.$router.push('/order/' + orderId)
+    }
   }
 }
 </script>

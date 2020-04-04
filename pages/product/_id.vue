@@ -1,15 +1,11 @@
 <template>
   <div>
-    <div class="grid grid-cols-3 gap-1">
-      <div class="col-span-4 iphonex:col-span-2 iphone6p:col-span-1">1</div>
-      <div class="col-span-4 iphonex:col-span-1 iphone6p:col-span-1">9</div>
-      <div class="col-span-4 iphonex:col-span-1 iphone6p:col-span-1">7</div>
-    </div>
-    <div class="container mx-auto">{{ product_id }}</div>
-    <div
-      class="box-border iphone6p:h-20 iphonex:h-100 w-32 p-4 border-4 border-gray-400 bg-gray-200"
-    >
-      <div class="h-full w-full bg-gray-400"></div>
+    <div class="product-info-contain">
+      <div class="main-info">
+        <div class="info-title">
+          <span>挚爱·进口玫瑰（品种可自选）</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -64,7 +60,7 @@ export default {
         created_date: String,
         updated_date: String
       },
-      skus: Array
+      skus: []
     }
   },
   mounted() {
@@ -79,11 +75,13 @@ export default {
 
         // TODO: 检查商品规格是否为空
         if (this.productInfo.sku_ids !== null) {
+          let skuIds = []
+
           // TODO: 分割规格为数组, 准备给页面构建
-          const skuIds = this.productInfo.sku_ids.split(',')
+          skuIds = (this.productInfo.sku_ids || '').split(',')
 
           // 遍历 skuIds, 查询数据库
-          skuIds.array.forEach(async (skuId) => {
+          skuIds.forEach(async (skuId) => {
             // 取出 sku信息
             const sku = await getSkuById(skuId)
             // 判断 sku是否为空...
@@ -129,3 +127,27 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.main-info {
+  margin: 0 auto;
+  width: 256px;
+  height: 304px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+}
+
+.info-title {
+  padding-top: 12px;
+  text-align: center;
+}
+
+.info-title > span {
+  width: 164px;
+  height: 12px;
+  font-size: 12px;
+  font-family: Adobe Heiti Std;
+  font-weight: bold;
+  color: rgba(1, 1, 1, 1);
+}
+</style>

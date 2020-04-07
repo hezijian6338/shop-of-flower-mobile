@@ -1,6 +1,12 @@
 <template>
   <div>
     <div class="contain">
+      <div v-if="getPageIndex === 'product-id'" class="left-menu float-left">
+        <span class="m2">详情</span>
+        <!-- <img src="~/assets/png/info.png" class="object-bottom pl-2" /> -->
+        <span class="m2">评价</span>
+        <span class="m3">商品</span>
+      </div>
       <div class="logo float-left">
         <img class="object-bottom pt-2" src="~/assets/png/logo2.png" />
       </div>
@@ -34,12 +40,17 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
       pageInMine: false,
       pageInDis: true
     }
+  },
+  computed: {
+    ...mapGetters({ getPageIndex: 'page/getPageIndex' })
   },
   methods: {
     pageSwitch(page) {
@@ -64,9 +75,38 @@ export default {
   background: rgba(255, 255, 255, 1);
 }
 
+.left-menu {
+  padding: 35vh 0 2vh 5vw;
+  width: 18px;
+}
+
+.left-menu > .m2 {
+  width: 12px;
+  height: 23px;
+  font-size: 12px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(174, 200, 187, 1);
+}
+
+.left-menu > .m3 {
+  /* margin-top: 20px; */
+  width: 12px;
+  height: 23px;
+  font-size: 12px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(174, 200, 187, 1);
+}
+
+.left-menu > img {
+  width: 18px;
+  height: 18px;
+}
+
 .logo {
   margin-top: 20px;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   width: 132px;
   height: 42px;
   background: rgba(255, 255, 255, 1);

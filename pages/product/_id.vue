@@ -1,9 +1,25 @@
 <template>
   <div>
     <div class="product-info-contain">
-      <div class="main-info">
+      <div class="main-info relative">
         <div class="info-title">
           <span>挚爱·进口玫瑰（品种可自选）</span>
+        </div>
+        <div class="info-photo">
+          <img src="http://photo.dragonsking.cn/2020/04/07/dfce095f4e02e.jpg" />
+        </div>
+        <div class="info-price">
+          <span class="type">¥</span>
+          <span class="price">399</span>
+        </div>
+        <div class="info-brief">
+          <span>
+            难以被世人所见的玫瑰品种 因其罕见、新奇而珍贵 天赋异禀的花材
+            不仅带来震撼人心的观赏体验 更在无形之中提升观赏者的气质
+          </span>
+        </div>
+        <div class="info-buy">
+          <span>购买</span>
         </div>
       </div>
     </div>
@@ -11,6 +27,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { getProductById } from '@/api/product'
 import { getSkuById } from '@/api/sku'
 import { createCart } from '@/api/cart'
@@ -24,6 +41,9 @@ export default {
     const product = await getProductById(productId)
     return { productId, product }
   },
+  computed: {
+    ...mapGetters({ getPageIndex: 'page/getPageIndex' })
+  },
   data() {
     return {
       productInfo: {
@@ -34,8 +54,8 @@ export default {
         content: String,
         sku_ids: String,
         photo: String,
-        created_date: String,
-        updated_date: String
+        created_date: Number,
+        updated_date: Number
       },
       cartInfo: {
         id: String,
@@ -45,8 +65,8 @@ export default {
         standard: String,
         price: Number,
         photo: String,
-        created_date: String,
-        updated_date: String
+        created_date: Number,
+        updated_date: Number
       },
       orderInfo: {
         id: String,
@@ -57,8 +77,8 @@ export default {
         price: Number,
         photo: String,
         state: Number,
-        created_date: String,
-        updated_date: String
+        created_date: Number,
+        updated_date: Number
       },
       skus: []
     }
@@ -129,6 +149,10 @@ export default {
 </script>
 
 <style scoped>
+.product-info-contain {
+  min-height: calc(90vh - 50px);
+}
+
 .main-info {
   margin: 0 auto;
   width: 256px;
@@ -149,5 +173,65 @@ export default {
   font-family: Adobe Heiti Std;
   font-weight: bold;
   color: rgba(1, 1, 1, 1);
+}
+
+.info-photo {
+  margin: 25px auto 0;
+  width: 180px;
+}
+
+.info-price {
+  margin-left: 65%;
+  margin-top: 10px;
+}
+
+.info-price > .type {
+  width: 14px;
+  height: 19px;
+  font-size: 24px;
+  font-family: Adobe Heiti Std;
+  font-weight: bold;
+  color: rgba(174, 200, 187, 1);
+}
+
+.info-price > .price {
+  width: 30px;
+  height: 15px;
+  font-size: 18px;
+  font-family: Adobe Heiti Std;
+  font-weight: bold;
+  color: rgba(1, 1, 1, 1);
+}
+
+.info-brief {
+  margin: 30px auto 0;
+}
+
+.info-brief > span {
+  width: 168px;
+  height: 69px;
+  font-size: 12px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(150, 156, 153, 1);
+}
+
+.info-buy {
+  margin-top: 30px;
+  width: 256px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  background: rgba(243, 173, 173, 1);
+  border-radius: 20px;
+}
+
+.info-buy > span {
+  width: 26px;
+  height: 11px;
+  font-size: 12px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 1);
 }
 </style>

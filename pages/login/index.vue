@@ -26,9 +26,12 @@ export default {
   },
   computed: {
     ...mapActions({
-      StateLogin: 'Login'
+      StateLogin: 'user/Login'
     }),
-    ...mapGetters(['CurrentPhone', 'CurrentInfo'])
+    ...mapGetters({
+      CurrentPhone: 'user/CurrentPhone',
+      CurrentInfo: 'user/CurrentInfo'
+    })
   },
   methods: {
     // TODO: 两种方式登陆

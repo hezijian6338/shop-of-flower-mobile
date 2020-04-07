@@ -1,6 +1,6 @@
 import { login } from '~/api/user'
 
-export const status = () => ({
+export const state = () => ({
   userInfo: {
     id: String,
     phone: String,
@@ -17,12 +17,12 @@ export const status = () => ({
 export const getters = {
   // TODO: 放回当前用户的电话号码
   CurrentPhone(state) {
-    return state.userInfo === null ? null : { phone: state.userInfo.phone }
+    return state.userInfo === undefined ? null : { phone: state.userInfo.phone }
   },
 
   // TODO: 返回当前用户的基础信息
   CurrentInfo(state) {
-    return state.userInfo === null
+    return state.userInfo === undefined
       ? null
       : {
           id: state.userInfo.id,
@@ -36,7 +36,7 @@ export const getters = {
 
   // TODO: 返回当前用户的用户角色信息
   CurrentRole(state) {
-    return state.userInfo === null ? null : { role: state.userInfo.role }
+    return state.userInfo === undefined ? null : { role: state.userInfo.role }
   }
 }
 

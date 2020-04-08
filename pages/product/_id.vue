@@ -1,16 +1,20 @@
 <template>
   <div>
-    <div class="product-info-contain">
-      <div class="main-info relative">
-        <div class="info-title">
-          <span>挚爱·进口玫瑰（品种可自选）</span>
-        </div>
-        <div class="info-photo">
-          <img src="http://photo.dragonsking.cn/2020/04/07/dfce095f4e02e.jpg" />
-        </div>
-        <div class="info-price">
-          <span class="type">¥</span>
-          <span class="price">399</span>
+    <div class="product-info-contain relavite overflow-y-auto">
+      <div class="info sticky top-0">
+        <div class="main-info">
+          <div class="info-title">
+            <span>挚爱·进口玫瑰（品种可自选）</span>
+          </div>
+          <div class="info-photo">
+            <img
+              src="http://photo.dragonsking.cn/2020/04/07/dfce095f4e02e.jpg"
+            />
+          </div>
+          <div class="info-price">
+            <span class="type">¥</span>
+            <span class="price">399</span>
+          </div>
         </div>
         <div class="info-brief">
           <span>
@@ -18,9 +22,10 @@
             不仅带来震撼人心的观赏体验 更在无形之中提升观赏者的气质
           </span>
         </div>
-        <div class="info-buy">
-          <span>购买</span>
-        </div>
+      </div>
+      <!-- <div class="content-info sticky top-0"></div> -->
+      <div class="info-buy">
+        <span>购买</span>
       </div>
     </div>
   </div>
@@ -40,9 +45,6 @@ export default {
     const productId = params.id
     const product = await getProductById(productId)
     return { productId, product }
-  },
-  computed: {
-    ...mapGetters({ getPageIndex: 'page/getPageIndex' })
   },
   data() {
     return {
@@ -82,6 +84,9 @@ export default {
       },
       skus: []
     }
+  },
+  computed: {
+    ...mapGetters({ getPageIndex: 'page/getPageIndex' })
   },
   mounted() {
     this.getSku()
@@ -150,7 +155,13 @@ export default {
 
 <style scoped>
 .product-info-contain {
-  min-height: calc(90vh - 50px);
+  min-height: calc(84vh - 50px);
+  height: 83.5vh;
+}
+
+.info {
+  margin: 0 auto;
+  width: 256px;
 }
 
 .main-info {
@@ -217,7 +228,7 @@ export default {
 }
 
 .info-buy {
-  margin-top: 30px;
+  margin: 30px auto 0;
   width: 256px;
   height: 50px;
   text-align: center;
@@ -233,5 +244,13 @@ export default {
   font-family: Adobe Heiti Std;
   font-weight: normal;
   color: rgba(255, 255, 255, 1);
+}
+
+.content-info {
+  margin: 40vh auto 0;
+  width: 256px;
+  height: 73vh;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 10px;
 }
 </style>

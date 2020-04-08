@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="product-info-contain relavite overflow-y-auto">
+    <div v-if="!showSku" class="product-info-contain relavite overflow-y-auto">
       <div class="info sticky top-0">
         <div class="main-info">
           <div class="info-title">
@@ -28,6 +28,9 @@
         <span>购买</span>
       </div>
     </div>
+    <div v-if="showSku" class="sku">
+      <skuList></skuList>
+    </div>
   </div>
 </template>
 
@@ -38,8 +41,11 @@ import { getSkuById } from '@/api/sku'
 import { createCart } from '@/api/cart'
 import { createOrder } from '@/api/order'
 
+import skuList from '@/components/skuList'
+
 export default {
   layout: 'default',
+  components: { skuList },
   // page component definitions
   async asyncData({ params }) {
     const productId = params.id
@@ -48,6 +54,7 @@ export default {
   },
   data() {
     return {
+      showSku: true,
       productInfo: {
         id: String,
         product_id: String,
@@ -252,5 +259,13 @@ export default {
   height: 73vh;
   background: rgba(255, 255, 255, 1);
   border-radius: 10px;
+}
+
+.sku {
+  margin: 10vh auto 0;
+  width: 288px;
+  /* height: 475px; */
+  /* background: rgba(255, 255, 255, 1); */
+  border-radius: 15px;
 }
 </style>

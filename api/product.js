@@ -16,7 +16,7 @@ export async function editProductById(axios, productId) {
 }
 
 export async function createProdcut(axios, product) {
-  const result = await axios.post('/product', { product })
+  const result = await axios.post('/product', product)
   return result
 }
 

@@ -11,7 +11,7 @@ export async function editSkuById(axios, skuId) {
 }
 
 export async function createSku(axios, sku) {
-  const result = await axios.post('/sku', { sku })
+  const result = await axios.post('/sku', sku)
   return result
 }
 

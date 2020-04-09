@@ -16,7 +16,7 @@ export async function editCartById(cartId) {
 }
 
 export async function createCart(cart) {
-  const result = await axios.post('/cart', { cart })
+  const result = await axios.post('/cart', cart)
   return result
 }
 

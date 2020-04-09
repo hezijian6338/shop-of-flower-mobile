@@ -11,7 +11,7 @@ export async function getUserByPhone(axios, phone) {
 }
 
 export async function createUser(axios, User) {
-  const result = await axios.post('/user', { user: User })
+  const result = await axios.post('/user', User)
   return result
 }
 
@@ -24,11 +24,11 @@ export async function login(axios, { phone, password }) {
 }
 
 export async function editUserById(axios, user) {
-  const result = await axios.put('/user/' + user.id, { user })
+  const result = await axios.put('/user/' + user.id, user)
   return result
 }
 
 export async function delUser(axios, User) {
-  const result = await axios.delete('/user/' + User.id, { user: User })
+  const result = await axios.delete('/user/' + User.id, User)
   return result
 }

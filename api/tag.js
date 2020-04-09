@@ -13,13 +13,13 @@ export async function getProductListByTagName({ tagName }) {
 }
 
 export async function createTag({ Tag }) {
-  const result = await axios.post('/tag', { Tag })
+  const result = await axios.post('/tag', Tag)
 
   return result
 }
 
 export async function editTag({ Tag }) {
-  const result = await axios.put('/tag/' + Tag.id, { Tag })
+  const result = await axios.put('/tag/' + Tag.id, Tag)
 
   return result
 }

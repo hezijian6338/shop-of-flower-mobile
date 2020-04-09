@@ -2,20 +2,24 @@
   <div>
     <div class="sku-contain relative">
       <div class="sku-title">
-        <img src="http://photo.dragonsking.cn/2020/04/08/2e94a8fe9c771.jpg" />
-        <span>¥399-4788</span>
+        <img v-if="cSku.photo !== undefined" :src="cSku.photo" />
+        <img v-else :src="skuList[0].photo" />
+        <span v-if="cSku.price !== undefined">{{ cSku.price }}</span>
+        <span v-else>{{ skuList[0].price }}</span>
       </div>
       <a href="#" class="close" @click="close"></a>
       <div class="sku-info">
         <span>规格</span>
         <div class="sku-list">
           <div
-            :class="{ sku: choose !== 1, 'sku-choose': choose === 1 }"
-            @click="chooseLabel(1)"
+            v-for="sku in skuList"
+            :key="sku.id"
+            :class="{ sku: choose !== sku.id, 'sku-choose': choose === sku.id }"
+            @click="chooseLabel(sku)"
           >
-            <span>1个月4束</span>
+            <span>{{ sku.standard }}</span>
           </div>
-          <div
+          <!-- <div
             :class="{ sku: choose !== 2, 'sku-choose': choose === 2 }"
             @click="chooseLabel(2)"
           >
@@ -38,7 +42,7 @@
             @click="chooseLabel(5)"
           >
             <span>1个月4束</span>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="sku-confirm">
@@ -54,13 +58,19 @@ export default {
   data() {
     return {
       choose: 1,
+      cSku: {},
       skuId: ''
     }
   },
+  mounted() {
+    // console.log(this.skuList)
+  },
   methods: {
-    chooseLabel(label) {
-      this.choose = label
-      this.skuId = label
+    chooseLabel(sku) {
+      // console.log(sku)
+      this.choose = sku.id
+      this.skuId = sku.id
+      this.cSku = sku
     },
     chooseSku() {
       this.$emit('chooseSkuId', this.skuId)
@@ -140,7 +150,7 @@ export default {
 .sku {
   margin-right: 20px;
   margin-bottom: 8px;
-  width: 79px;
+  min-width: 79px;
   height: 28px;
   float: left;
   line-height: 25px;
@@ -149,8 +159,8 @@ export default {
 }
 
 .sku > span {
-  width: 49px;
-  height: 12px;
+  /* width: 49px;
+  height: 12px; */
   font-size: 12px;
   font-family: Adobe Heiti Std;
   font-weight: normal;
@@ -160,7 +170,7 @@ export default {
 .sku-choose {
   margin-right: 20px;
   margin-bottom: 8px;
-  width: 79px;
+  min-width: 79px;
   height: 28px;
   float: left;
   line-height: 21px;
@@ -170,8 +180,8 @@ export default {
 }
 
 .sku-choose > span {
-  width: 49px;
-  height: 12px;
+  /* width: 49px;
+  height: 12px; */
   font-size: 12px;
   font-family: Adobe Heiti Std;
   font-weight: normal;

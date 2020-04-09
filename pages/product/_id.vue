@@ -16,7 +16,7 @@
           </div>
           <div class="info-price">
             <span class="type">¥</span>
-            <span class="price">{{ skuPrice }}</span>
+            <span class="price">{{ sku.price }}</span>
           </div>
         </div>
         <div class="info-brief">
@@ -94,25 +94,20 @@ export default {
         created_date: Number,
         updated_date: Number
       },
-      skus: []
+      skus: [],
+      sku: {}
     }
   },
   computed: {
-    ...mapGetters({ getPageIndex: 'page/getPageIndex' }),
-    skuPrice() {
-      const skus = Object.assign([], this.skus)
-      console.log(this.skus)
-      const { price } = skus[0]
-      return price
-    }
+    ...mapGetters({ getPageIndex: 'page/getPageIndex' })
   },
-  mounted() {
+  created() {
     this.getSku()
     // console.log(this.skus)
   },
   methods: {
     // TODO: 找到该商品的规格信息
-    getSku() {
+    async getSku() {
       // TODO: 检查商品信息是否为空
       if (this.product !== null) {
         this.productInfo = Object.assign({}, this.product)
@@ -125,14 +120,15 @@ export default {
           skuIds = (this.productInfo.sku_ids || '').split(',')
 
           // 遍历 skuIds, 查询数据库
-          skuIds.forEach(async (skuId) => {
+          for (const skuId of skuIds) {
             // 取出 sku信息
             const { data: sku } = await getSkuById(this.$axios, skuId)
+            this.sku = sku
             // 判断 sku是否为空...
             if (sku !== null) {
               this.skus.push(sku)
             }
-          })
+          }
         }
       }
     },
@@ -219,6 +215,7 @@ export default {
 .info-price {
   margin-left: 65%;
   margin-top: 10px;
+  padding-bottom: 10px;
 }
 
 .info-price > .type {

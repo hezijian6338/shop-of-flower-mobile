@@ -1,10 +1,11 @@
 <template>
   <div>
-    <div class="sku-contain">
+    <div class="sku-contain relative">
       <div class="sku-title">
         <img src="http://photo.dragonsking.cn/2020/04/08/2e94a8fe9c771.jpg" />
         <span>¥399-4788</span>
       </div>
+      <a href="#" class="close" @click="close"></a>
       <div class="sku-info">
         <span>规格</span>
         <div class="sku-list">
@@ -52,12 +53,20 @@ export default {
   props: ['skuList'],
   data() {
     return {
-      choose: 1
+      choose: 1,
+      skuId: ''
     }
   },
   methods: {
     chooseLabel(label) {
       this.choose = label
+      this.skuId = label
+    },
+    chooseSku() {
+      this.$emit('chooseSkuId', this.skuId)
+    },
+    close() {
+      this.$emit('closeSku', true)
     }
   }
 }
@@ -79,6 +88,29 @@ export default {
   text-align: center;
   line-height: 100px;
   width: 60vw;
+}
+
+.close {
+  position: absolute;
+  right: 33px;
+  top: 15px;
+  width: 20px;
+  height: 20px;
+}
+.close:before,
+.close:after {
+  position: absolute;
+  left: 15px;
+  content: '';
+  height: 20px;
+  width: 2px;
+  background-color: #333;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
 }
 
 .sku-title > span {

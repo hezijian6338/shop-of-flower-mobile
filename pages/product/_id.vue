@@ -24,12 +24,12 @@
         </div>
       </div>
       <!-- <div class="content-info sticky top-0"></div> -->
-      <div class="info-buy">
+      <div class="info-buy" @click="buy">
         <span>购买</span>
       </div>
     </div>
     <div v-if="showSku" class="sku">
-      <skuList></skuList>
+      <skuList :sku-list="skus" @closeSku="close"></skuList>
     </div>
   </div>
 </template>
@@ -54,7 +54,7 @@ export default {
   },
   data() {
     return {
-      showSku: true,
+      showSku: false,
       productInfo: {
         id: String,
         product_id: String,
@@ -155,6 +155,12 @@ export default {
           // FIXME: 进行前端通知
         }
       }
+    },
+    buy() {
+      this.showSku = !this.showSku
+    },
+    close(state) {
+      this.showSku = !state
     }
   }
 }

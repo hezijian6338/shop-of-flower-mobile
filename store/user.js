@@ -43,7 +43,7 @@ export const getters = {
 // TODO: 用户登录, 并且纪录登陆信息
 export const actions = {
   async Login(state, { phone, password }) {
-    const user = await login({ phone, password })
+    const user = await login(this.$axios, { phone, password })
     state.userInfo = { ...user }
   }
 }

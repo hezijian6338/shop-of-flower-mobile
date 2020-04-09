@@ -1,26 +1,26 @@
-import axios from 'axios'
+// import axios from 'axios'
 
-export async function getProductById(productId) {
+export async function getProductById(axios, productId) {
   const result = await axios.get('/product/' + productId)
   return result
 }
 
-export async function getProducts() {
+export async function getProducts(axios) {
   const result = await axios.get('/product/list')
   return result
 }
 
-export async function editProductById(productId) {
+export async function editProductById(axios, productId) {
   const result = await axios.put('/product/' + productId)
   return result
 }
 
-export async function createProdcut(product) {
+export async function createProdcut(axios, product) {
   const result = await axios.post('/product', { product })
   return result
 }
 
-export async function deleteProductById(productId) {
+export async function deleteProductById(axios, productId) {
   const result = await axios.delete('/product' + productId)
   return result
 }

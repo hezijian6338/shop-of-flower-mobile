@@ -19,7 +19,11 @@
       <div class="contain-button float-left">
         <img src="~/assets/png/index.png" />
       </div>
-      <div class="contain-bottom float-left">
+      <div
+        v-if="getPageIndex === 'pay-id'"
+        class="contain-bottom float-left"
+      ></div>
+      <div v-else class="contain-bottom float-left">
         <div
           class="button"
           :class="{ choose: pageInDis }"

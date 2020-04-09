@@ -5,10 +5,10 @@
 <script>
 import { getOrdersByUserId } from '../../api/order'
 export default {
-  async asyncData({ params }) {
+  async asyncData({ params, $axios }) {
     const userId = params.userId
     // TODO: 根据用户 id返回该用户的订单信息列表
-    const orders = await getOrdersByUserId(userId)
+    const { data: orders } = await getOrdersByUserId($axios, userId)
 
     return { userId, orders }
   },

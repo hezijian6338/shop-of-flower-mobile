@@ -4,20 +4,24 @@
       <div class="info sticky top-0">
         <div class="main-info">
           <div class="info-title">
-            <span>挚爱·进口玫瑰（品种可自选）</span>
+            <span v-if="product.name !== undefined">{{ product.name }}</span>
+            <span v-else>挚爱·进口玫瑰（品种可自选）</span>
           </div>
           <div class="info-photo">
+            <img v-if="product.photo !== undefined" :src="product.photo" />
             <img
+              v-else
               src="http://photo.dragonsking.cn/2020/04/07/dfce095f4e02e.jpg"
             />
           </div>
           <div class="info-price">
             <span class="type">¥</span>
-            <span class="price">399</span>
+            <span class="price">{{ skuPrice }}</span>
           </div>
         </div>
         <div class="info-brief">
-          <span>
+          <span v-if="product.brief !== undefined">{{ product.brief }}</span>
+          <span v-else>
             难以被世人所见的玫瑰品种 因其罕见、新奇而珍贵 天赋异禀的花材
             不仅带来震撼人心的观赏体验 更在无形之中提升观赏者的气质
           </span>
@@ -47,9 +51,10 @@ export default {
   layout: 'default',
   components: { skuList },
   // page component definitions
-  async asyncData({ params }) {
+  async asyncData({ params, $axios }) {
     const productId = params.id
-    const product = await getProductById(productId)
+    const { data: product } = await getProductById($axios, productId)
+    // console.log(product.data)
     return { productId, product }
   },
   data() {
@@ -93,10 +98,17 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ getPageIndex: 'page/getPageIndex' })
+    ...mapGetters({ getPageIndex: 'page/getPageIndex' }),
+    skuPrice() {
+      const skus = Object.assign([], this.skus)
+      console.log(this.skus)
+      const { price } = skus[0]
+      return price
+    }
   },
   mounted() {
     this.getSku()
+    // console.log(this.skus)
   },
   methods: {
     // TODO: 找到该商品的规格信息
@@ -115,7 +127,7 @@ export default {
           // 遍历 skuIds, 查询数据库
           skuIds.forEach(async (skuId) => {
             // 取出 sku信息
-            const sku = await getSkuById(skuId)
+            const { data: sku } = await getSkuById(this.$axios, skuId)
             // 判断 sku是否为空...
             if (sku !== null) {
               this.skus.push(sku)
@@ -132,7 +144,7 @@ export default {
         this.cartInfo.product_id = productId
         this.cartInfo.sku_id = skuId
 
-        const result = createCart(this.cartInfo)
+        const result = createCart(this.$axios, this.cartInfo)
         if (result.result) {
           // 返回购物车的 id (或者用于页面跳转)
           // const cartId = result.id
@@ -147,7 +159,7 @@ export default {
         this.orderInfo.product_id = productId
         this.orderInfo.sku_id = skuId
 
-        const result = createOrder(this.orderInfo)
+        const result = createOrder(this.$axios, this.orderInfo)
         if (result.result) {
           // 返回订单 id (用于页面跳转)
           // const orderId = result.id
@@ -180,7 +192,7 @@ export default {
 .main-info {
   margin: 0 auto;
   width: 256px;
-  height: 304px;
+  /* height: 304px; */
   background: rgba(255, 255, 255, 1);
   border-radius: 10px;
 }

@@ -75,9 +75,9 @@
 import { getTagList } from '@/api/tag'
 
 export default {
-  async asyncData({ params }) {
-    let tagList = []
-    tagList = await getTagList()
+  async asyncData({ params, $axios }) {
+    // let tagList = []
+    const { data: tagList } = await getTagList($axios)
 
     return { tagList }
   },

@@ -5,10 +5,10 @@
 <script>
 import { getOrderById } from '../../api/order'
 export default {
-  async asyncData({ params }) {
+  async asyncData({ params, $axios }) {
     const orderId = params.id
     // TODO: 取出当前页面的订单数据
-    const order = await getOrderById(orderId)
+    const { data: order } = await getOrderById($axios, orderId)
     return { orderId, order }
   },
   data() {

@@ -24,10 +24,10 @@ import { getProductListByTagName } from '../../../api/tag'
 export default {
   layout: 'default',
   // page component definitions
-  async asyncData({ params }) {
+  async asyncData({ params, $axios }) {
     // TODO: 通过标签查询产品列表返回结果
     const { tagName } = params
-    const products = await getProductListByTagName(tagName)
+    const { data: products } = await getProductListByTagName($axios, tagName)
     return { products }
   },
   data() {

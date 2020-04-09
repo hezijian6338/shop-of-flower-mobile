@@ -69,8 +69,8 @@
   width: 80px;
 }
 
-.main-info {
-}
+/* .main-info {
+} */
 
 .main-info > .title {
   line-height: 40px;

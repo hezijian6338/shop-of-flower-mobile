@@ -51,6 +51,14 @@
   </div>
 </template>
 
+<script>
+export default {
+  asyncData({ params }) {
+    return { orderId: params.id }
+  }
+}
+</script>
+
 <style scoped>
 .product-info {
   margin: 0 auto;

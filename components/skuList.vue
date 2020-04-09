@@ -45,7 +45,7 @@
           </div> -->
         </div>
       </div>
-      <div class="sku-confirm">
+      <div class="sku-confirm" @click="chooseSku">
         <span>确认</span>
       </div>
     </div>
@@ -54,6 +54,7 @@
 
 <script>
 export default {
+  // eslint-disable-next-line vue/require-prop-types
   props: ['skuList'],
   data() {
     return {

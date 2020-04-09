@@ -33,7 +33,11 @@
       </div>
     </div>
     <div v-if="showSku" class="sku">
-      <skuList :sku-list="skus" @closeSku="close"></skuList>
+      <skuList
+        :sku-list="skus"
+        @closeSku="close"
+        @chooseSkuId="chooseSkuId"
+      ></skuList>
     </div>
   </div>
 </template>
@@ -150,15 +154,20 @@ export default {
       }
     },
     // TODO: 把该商品添加到我的订单 (同时需要跳转页面到支付页面 (不打算做支付页面了, 功能复杂))
-    addOrder(productId, skuId) {
+    async addOrder(productId, skuId) {
       if (productId !== null && skuId !== null) {
         this.orderInfo.product_id = productId
         this.orderInfo.sku_id = skuId
 
-        const result = createOrder(this.$axios, this.orderInfo)
-        if (result.result) {
+        // console.log(`this.orderInfo`)
+
+        const { data: res } = await createOrder(this.$axios, this.orderInfo)
+        // console.log(res)
+
+        if (res.result) {
           // 返回订单 id (用于页面跳转)
-          // const orderId = result.id
+          const orderId = res.id
+          this.$router.push('/pay/' + orderId)
         } else {
           // FIXME: 进行前端通知
         }
@@ -166,6 +175,10 @@ export default {
     },
     buy() {
       this.showSku = !this.showSku
+    },
+    chooseSkuId(skuId) {
+      this.showSku = !this.showSku
+      this.addOrder(this.productInfo.product_id, skuId)
     },
     close(state) {
       this.showSku = !state

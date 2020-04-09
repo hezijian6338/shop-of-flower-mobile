@@ -16,7 +16,7 @@ export async function editOrderById(axios, orderId) {
 }
 
 export async function createOrder(axios, order) {
-  const result = await axios.post('/order', { order })
+  const result = await axios.post('/order', order)
   return result
 }
 

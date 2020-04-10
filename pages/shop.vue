@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="product-list overflow-x-scroll overflow-y-hidden">
-      <div class="product mr-3" @click="toTagPage()">
+      <div class="product mr-3" @click="toTagPage('single')">
         <img
           class="object-center w-16 h-16 style: padding-top: 8px"
           src="~/assets/png/flower1.png"

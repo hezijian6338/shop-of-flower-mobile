@@ -41,7 +41,7 @@ export default {
 
       // 如果
       if (this.GetPhone === null) {
-        const result = login({ phone, password })
+        const result = login(this.$axios, { phone, password })
         if (Reflect.has(result, 'code')) {
           // result.info 返回错误信息
         } else {

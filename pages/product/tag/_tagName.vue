@@ -1,19 +1,35 @@
 <template>
   <div class="product-contain">
     <div class="product-title">
-      <p class="title">简花</p>
+      <p class="title">单品</p>
       <p class="brief">从简单中发现美好</p>
     </div>
     <div class="product-list overflow-x-hidden overflow-y-scroll">
-      <div class="product-item"></div>
-      <div class="product-item"></div>
-      <div class="product-item"></div>
-      <div class="product-item"></div>
-      <div class="product-item"></div>
-      <div class="product-item"></div>
-      <div class="product-item"></div>
-      <div class="product-item"></div>
-      <div class="product-item"></div>
+      <div
+        v-for="product in products"
+        :key="product.id"
+        class="product-item grid grid-rows-12 gap-1"
+      >
+        <!-- <div class="product grid grid-rows-6 gap-1"> -->
+        <div class="photo row-span-8">
+          <img v-if="product.photo !== undefined" :src="product.photo" />
+          <img
+            v-else
+            src="http://photo.dragonsking.cn/2020/04/08/736c8b2a37b86.jpg"
+          />
+        </div>
+        <div
+          v-if="product.name !== undefined"
+          class="name row-span-2 text-center"
+        >
+          {{ product.name }}
+        </div>
+        <div v-else>挚爱·进口玫瑰</div>
+        <!-- <div class="price row-span-2 text-center">
+          {{ getProductSku(product.skuIds) }}
+        </div> -->
+        <!-- </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -27,7 +43,9 @@ export default {
   async asyncData({ params, $axios }) {
     // TODO: 通过标签查询产品列表返回结果
     const { tagName } = params
-    const { data: products } = await getProductListByTagName($axios, tagName)
+    const { data: products } = await getProductListByTagName($axios, {
+      tagName
+    })
     return { products }
   },
   data() {
@@ -83,14 +101,37 @@ export default {
   width: 80vw;
   height: 75vh;
 }
-
 .product-item {
   margin-right: 27px;
   margin-bottom: 20px;
   float: left;
   width: 122px;
-  height: 161px;
+  min-height: 161px;
   background: rgba(255, 255, 255, 1);
   border-radius: 10px;
+}
+
+.product-item > .photo {
+  margin: 0 auto;
+  padding-top: 14px;
+  width: 80px;
+}
+
+.product-item > .name {
+  /* width:83px;
+height:12px; */
+  font-size: 12px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(1, 1, 1, 1);
+}
+
+.product-item > .price {
+  /* width: 40px;
+  height: 9px; */
+  font-size: 9px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(1, 1, 1, 1);
 }
 </style>

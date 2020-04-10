@@ -128,7 +128,7 @@ export default {
 
 .show-area {
   padding-top: 86px;
-  /* padding-left: 17px; */
+  height: 94vh;
 }
 
 .main-contain {

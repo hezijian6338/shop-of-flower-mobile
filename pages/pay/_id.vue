@@ -7,13 +7,23 @@
         </div> -->
         <div class="info grid grid-cols-7 gap-2">
           <div class="info-photo col-span-2 text-center">
+            <img v-if="order.photo !== undefined" :src="order.photo" />
             <img
+              v-else
               src="http://photo.dragonsking.cn/2020/04/08/606ea57aef693.jpg"
             />
           </div>
           <div class="main-info col-span-4 grid grid-rows-3 grid-flow-1 gap-1">
-            <div class="title row-span-1">挚爱-进口玫瑰</div>
-            <div class="content row-span-2">1个月4束，周一收花，品种自选</div>
+            <div v-if="order.name !== undefined" class="title row-span-1">
+              {{ order.name }}
+            </div>
+            <div v-else class="title row-span-1">挚爱-进口玫瑰</div>
+            <div v-if="order.standard !== undefined" class="content row-span-2">
+              {{ order.standard }}
+            </div>
+            <div v-else class="content row-span-2">
+              1个月4束，周一收花，品种自选
+            </div>
           </div>
           <div class="price-info col-span-1 grid grid-rows-3 grid-flow-1 gap-1">
             <div class="price row-span-1">¥399.00</div>
@@ -46,15 +56,48 @@
             </div>
           </div>
         </div>
+        <div class="grid grid-cols-12 gap-4 absolute bottom-0 mb-2">
+          <div class="pay-button col-start-2 col-span-2 text-center">
+            付款
+          </div>
+          <div class="back col-start-7 col-span-2 text-center" @click="back">
+            返回
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { getOrderById } from '../../api/order'
 export default {
-  asyncData({ params }) {
-    return { orderId: params.id }
+  async asyncData({ params, $axios }) {
+    const orderId = params.id
+    const { data: order } = await getOrderById($axios, orderId)
+
+    return { orderId, order }
+  },
+  data() {
+    return {
+      orderInfo: {
+        id: String,
+        product_id: String,
+        name: String,
+        sku_id: String,
+        standard: String,
+        price: Number,
+        photo: String,
+        state: Number,
+        created_date: String,
+        updated_date: String
+      }
+    }
+  },
+  methods: {
+    back() {
+      this.$router.back(-1)
+    }
   }
 }
 </script>
@@ -193,5 +236,29 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.pay-button {
+  width: 110px;
+  height: 45px;
+  line-height: 45px;
+  background: rgba(243, 173, 173, 1);
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 1);
+}
+
+.back {
+  width: 110px;
+  height: 45px;
+  line-height: 45px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(135, 135, 135, 1);
 }
 </style>

@@ -35,16 +35,23 @@
       </div>
     </div>
     <div class="limit-list overflow-x-scroll overflow-y-hidden">
-      <div v-for="limit in productsLimit" :key="limit.id" class="limit-item">
+      <div
+        v-for="limit in productsLimit"
+        :key="limit.id"
+        class="limit-item"
+        @click="toPageInfo(limit.product_id)"
+      >
         <div class="item-photo">
           <img v-if="limit.photo !== undefined" :src="limit.photo" />
           <img v-else src="~/assets/png/limit1.png" />
         </div>
-        <div class="item-name">
-          <span>呆萌精灵-泰迪菊 10 枝</span>
+        <div class="item-name text-center">
+          <span v-if="limit.name !== undefined">{{ limit.name }}</span>
+          <span v-else>呆萌精灵-泰迪菊 10 枝</span>
         </div>
         <div class="item-price">
-          <span>¥25.90</span>
+          <span v-if="limit.price !== undefined">¥{{ limit.price }}</span>
+          <span v-else>¥25.90</span>
         </div>
       </div>
       <!-- <div class="limit-item"></div>
@@ -90,6 +97,9 @@ export default {
   methods: {
     toTagPage(tagName) {
       this.$router.push('/product/tag/' + tagName)
+    },
+    toPageInfo(productId) {
+      this.$router.push('/product/' + productId)
     }
   }
 }
@@ -173,17 +183,22 @@ export default {
   margin: 12px 0 12px 12px;
   float: left;
   width: 80px;
-  height: 80px;
+  /* height: 80px; */
+}
+
+.item-photo > img {
+  max-height: 103px;
 }
 
 .item-name {
   margin-top: 30px;
+  margin-left: 20px;
   float: left;
 }
 
 .item-name > span {
-  width: 92px;
-  height: 10px;
+  /* width: 92px; */
+  /* height: 10px; */
   font-size: 9px;
   font-family: Adobe Heiti Std;
   font-weight: bold;

@@ -8,14 +8,14 @@
         />
         <span>单品花束</span>
       </div>
-      <div class="product mr-3">
+      <div class="product mr-3" @click="toTagPage('mix')">
         <img
           class="object-bottom w-16 h-16 style: padding-top: 8px"
           src="~/assets/png/flower2.png"
         />
         <span>混合花束</span>
       </div>
-      <div class="product mr-3">
+      <div class="product mr-3" @click="toTagPage('nature')">
         <img
           class="object-bottom w-16 h-16 style: padding-top: 8px"
           src="~/assets/png/flower3.png"

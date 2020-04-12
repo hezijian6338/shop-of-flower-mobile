@@ -9,8 +9,8 @@
         v-for="product in products"
         :key="product.id"
         class="product-item grid grid-rows-12 gap-1"
+        @click="toPageInfo(product.product_id)"
       >
-        <!-- <div class="product grid grid-rows-6 gap-1"> -->
         <div class="photo row-span-8">
           <img v-if="product.photo !== undefined" :src="product.photo" />
           <img
@@ -28,7 +28,6 @@
         <div class="price row-span-2 text-center">
           {{ product.price }}
         </div>
-        <!-- </div> -->
       </div>
     </div>
   </div>
@@ -39,7 +38,6 @@ import { getProducts } from '../../api/product'
 import { getSkuById } from '../../api/sku'
 export default {
   layout: 'default',
-  // page component definitions
   async asyncData({ $axios }) {
     // TODO: 加载所有的信息列表
     const { data: products } = await getProducts($axios)
@@ -68,20 +66,15 @@ export default {
         // TODO: 分割规格为数组, 准备给页面构建
         skuIds = (skuids || '').split(',')
 
-        // 遍历 skuIds, 查询数据库
-        // for (const skuId of skuIds) {
-        // 取出 sku信息
         const { data: sku } = await getSkuById(this.$axios, skuIds[0])
-        // this.sku = sku
-        // 判断 sku是否为空...
-        // if (sku !== null) {
-        // this.skus.push(sku)
-        // }
-        // }
-        console.log(sku)
 
         return sku || sku.price
       }
+    }
+  },
+  methods: {
+    toPageInfo(productId) {
+      this.$router.push('/product/' + productId)
     }
   }
 }

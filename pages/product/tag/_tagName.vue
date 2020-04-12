@@ -1,7 +1,9 @@
 <template>
   <div class="product-contain">
     <div class="product-title">
-      <p class="title">单品</p>
+      <p v-if="tagName === 'single'" class="title">单品花束</p>
+      <p v-if="tagName === 'mix'" class="title">混合花束</p>
+      <p v-if="tagName === 'nature'" class="title">阳光绿植</p>
       <p class="brief">从简单中发现美好</p>
     </div>
     <div class="product-list overflow-x-hidden overflow-y-scroll">
@@ -9,6 +11,7 @@
         v-for="product in products"
         :key="product.id"
         class="product-item grid grid-rows-12 gap-1"
+        @click="toPageInfo(product.product_id)"
       >
         <!-- <div class="product grid grid-rows-6 gap-1"> -->
         <div class="photo row-span-8">
@@ -49,7 +52,7 @@ export default {
 
     // console.log(products)
 
-    return { products }
+    return { tagName, products }
   },
   data() {
     return {
@@ -64,6 +67,11 @@ export default {
         created_date: String,
         updated_date: String
       }
+    }
+  },
+  methods: {
+    toPageInfo(productId) {
+      this.$router.push('/product/' + productId)
     }
   }
 }
@@ -81,7 +89,7 @@ export default {
 
 .product-title > .title {
   margin: 0 auto;
-  width: 78px;
+  /* width: 78px; */
   height: 35px;
   font-size: 36px;
   font-family: Adobe Heiti Std;

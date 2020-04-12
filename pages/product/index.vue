@@ -25,9 +25,9 @@
           {{ product.name }}
         </div>
         <div v-else>挚爱·进口玫瑰</div>
-        <!-- <div class="price row-span-2 text-center">
-          {{ getProductSku(product.skuIds) }}
-        </div> -->
+        <div class="price row-span-2 text-center">
+          {{ product.price }}
+        </div>
         <!-- </div> -->
       </div>
     </div>
@@ -141,6 +141,10 @@ export default {
   margin: 0 auto;
   padding-top: 14px;
   width: 80px;
+}
+
+img {
+  border-radius: 10px;
 }
 
 .product-item > .name {

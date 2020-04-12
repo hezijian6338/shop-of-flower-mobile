@@ -35,9 +35,10 @@
       </div>
     </div>
     <div class="limit-list overflow-x-scroll overflow-y-hidden">
-      <div class="limit-item">
+      <div v-for="limit in productsLimit" :key="limit.id" class="limit-item">
         <div class="item-photo">
-          <img src="~/assets/png/limit1.png" />
+          <img v-if="limit.photo !== undefined" :src="limit.photo" />
+          <img v-else src="~/assets/png/limit1.png" />
         </div>
         <div class="item-name">
           <span>呆萌精灵-泰迪菊 10 枝</span>
@@ -46,10 +47,10 @@
           <span>¥25.90</span>
         </div>
       </div>
+      <!-- <div class="limit-item"></div>
       <div class="limit-item"></div>
       <div class="limit-item"></div>
-      <div class="limit-item"></div>
-      <div class="limit-item"></div>
+      <div class="limit-item"></div> -->
     </div>
     <div class="current-list overflow-x-scroll overflow-y-hidden">
       <div class="current-item">
@@ -72,14 +73,19 @@
 </template>
 
 <script>
-import { getTagList } from '@/api/tag'
+import { getTagList, getProductListByTagName } from '@/api/tag'
 
 export default {
   async asyncData({ params, $axios }) {
-    // let tagList = []
+    // 标签列表
     const { data: tagList } = await getTagList($axios)
 
-    return { tagList }
+    // 限时产品加载
+    const { data: productsLimit } = await getProductListByTagName($axios, {
+      tagName: 'limit'
+    })
+
+    return { tagList, productsLimit }
   },
   methods: {
     toTagPage(tagName) {

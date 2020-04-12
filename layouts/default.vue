@@ -16,7 +16,7 @@
           <nuxt />
         </div>
       </div>
-      <div class="contain-button float-left" @click="pageSwitch('product')">
+      <div class="contain-button float-left" @click="pageSwitch('shop')">
         <img src="~/assets/png/index.png" />
       </div>
       <div
@@ -59,7 +59,7 @@ export default {
   methods: {
     pageSwitch(page) {
       if (page === 'dis') {
-        this.$router.push('/shop')
+        this.$router.push('/dis')
         this.pageInDis = true
         this.pageInMine = false
       }
@@ -71,6 +71,13 @@ export default {
       }
       if (page === 'product') {
         this.$router.push('/product')
+        this.pageInMine = false
+        this.pageInDis = false
+      }
+      if (page === 'shop') {
+        this.$router.push('/shop')
+        this.pageInMine = false
+        this.pageInDis = false
       }
     }
   }

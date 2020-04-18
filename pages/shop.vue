@@ -41,17 +41,25 @@
         class="limit-item"
         @click="toPageInfo(limit.product_id)"
       >
-        <div class="item-photo">
-          <img v-if="limit.photo !== undefined" :src="limit.photo" />
-          <img v-else src="~/assets/png/limit1.png" />
-        </div>
-        <div class="item-name text-center">
-          <span v-if="limit.name !== undefined">{{ limit.name }}</span>
-          <span v-else>呆萌精灵-泰迪菊 10 枝</span>
-        </div>
-        <div class="item-price">
-          <span v-if="limit.price !== undefined">¥{{ limit.price }}</span>
-          <span v-else>¥25.90</span>
+        <div class="grid grid-cols-8">
+          <div class="item-photo col-span-4">
+            <img
+              v-if="limit.photo !== undefined"
+              :src="limit.photo"
+              class="object-contain"
+            />
+            <img v-else src="~/assets/png/limit1.png" />
+          </div>
+          <div class="text-center col-start-5 col-span-4 grid grid-rows-6">
+            <div class="item-name row-start-3">
+              <span v-if="limit.name !== undefined">{{ limit.name }}</span>
+              <span v-else>呆萌精灵-泰迪菊 10 枝</span>
+            </div>
+            <div class="item-price row-start-4">
+              <span v-if="limit.price !== undefined">¥{{ limit.price }}</span>
+              <span v-else>¥25.90</span>
+            </div>
+          </div>
         </div>
       </div>
       <!-- <div class="limit-item"></div>
@@ -174,26 +182,29 @@ export default {
   margin-right: 34px;
   display: inline-block;
   width: 214px;
-  height: 103px;
+  min-height: 149px;
   background: rgba(255, 255, 255, 1);
   border-radius: 10px;
 }
 
 .item-photo {
-  margin: 12px 0 12px 12px;
-  float: left;
-  width: 80px;
+  /* margin: 12px 0 12px 12px; */
+  min-height: 149px;
+  /* float: left; */
+  /* width: 80px; */
   /* height: 80px; */
 }
 
 .item-photo > img {
-  max-height: 103px;
+  margin: 10px 0 10px 10px;
+  /* max-height: 83px; */
+  /* max-width: 83px; */
 }
 
 .item-name {
-  margin-top: 30px;
-  margin-left: 20px;
-  float: left;
+  /* margin-top: 30px; */
+  /* margin-left: 20px; */
+  /* float: left; */
 }
 
 .item-name > span {
@@ -206,14 +217,14 @@ export default {
 }
 
 .item-price {
-  width: 120px;
-  float: left;
-  text-align: center;
+  /* width: 120px; */
+  /* float: left; */
+  /* text-align: center; */
 }
 
 .item-price > span {
-  width: 24px;
-  height: 7px;
+  /* width: 24px; */
+  /* height: 7px; */
   font-size: 8px;
   font-family: Adobe Heiti Std;
   font-weight: normal;

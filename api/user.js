@@ -16,7 +16,7 @@ export async function createUser(axios, User) {
 }
 
 export async function login(axios, { phone, password }) {
-  const result = await axios.post('/user/login', {
+  const result = await axios.post('/login', {
     phone,
     password
   })

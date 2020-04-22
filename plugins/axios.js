@@ -41,8 +41,11 @@
 //   })
 // }
 
-export default function({ $axios, redirect }) {
+export default function({ store, $axios, redirect }) {
   $axios.onRequest((config) => {
+    // console.log(store)
+
+    // console.log(Object.assign({}, store.state.user.token))
     console.log('Making request to ' + config.url)
   })
 

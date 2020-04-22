@@ -27,9 +27,26 @@
 import { getUserById, editUserById } from '@/api/user'
 
 export default {
-  async asyncData({ params, $axios }) {
+  fetch({ store }) {
+    store.dispatch('user/Login', {
+      phone: '13160666721',
+      password: '12345678'
+    })
+  },
+
+  async asyncData({ params, $axios, store }) {
     const userId = params.id
+
+    // console.log(store.state.user.token)
+
+    // const token = store.state.user.token
+
+    // console.log(token)
+
+    // await $axios.setHeader('Authorization', token)
+
     const user = await getUserById($axios, userId)
+
     return { userId, user }
   },
   data() {

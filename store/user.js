@@ -11,7 +11,8 @@ export const state = () => ({
     cart_ids: String,
     created_date: String,
     updated_date: String
-  }
+  },
+  token: String
 })
 
 export const getters = {
@@ -37,13 +38,24 @@ export const getters = {
   // TODO: 返回当前用户的用户角色信息
   CurrentRole(state) {
     return state.userInfo === undefined ? null : { role: state.userInfo.role }
+  },
+
+  Token(state) {
+    return state.token === undefined ? null : state.token
   }
 }
 
 // TODO: 用户登录, 并且纪录登陆信息
 export const actions = {
   async Login(state, { phone, password }) {
-    const user = await login(this.$axios, { phone, password })
+    const result = await login(this.$axios, { phone, password })
+
+    const { token, user } = result.data
+    // console.log(token)
+
+    await this.$axios.setHeader('Authorization', token)
+
     state.userInfo = { ...user }
+    state.token = { ...token }
   }
 }

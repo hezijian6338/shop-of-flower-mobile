@@ -36,8 +36,8 @@ export const getters = {
           phone: state.userInfo.phone,
           name: state.userInfo.name,
           role: state.userInfo.role,
-          orderIds: state.userInfo.order_ids,
-          cartIds: state.userInfo.cart_ids
+          order_ids: state.userInfo.order_ids,
+          cart_ids: state.userInfo.cart_ids
         }
   },
 

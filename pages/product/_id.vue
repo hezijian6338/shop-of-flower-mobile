@@ -32,7 +32,7 @@
         <div class="info-buy inline-block" @click="buy">
           <span>购买</span>
         </div>
-        <img class="inline-block" src="~/assets/png/toCart.png" />
+        <img class="inline-block" src="~/assets/png/toCart.png" @click="cart" />
       </div>
     </div>
     <div v-if="showSku" class="sku">
@@ -51,6 +51,7 @@ import { getProductById } from '@/api/product'
 import { getSkuById } from '@/api/sku'
 import { createCart } from '@/api/cart'
 import { createOrder } from '@/api/order'
+import { editUserById } from '@/api/user'
 
 import skuList from '@/components/skuList'
 
@@ -61,7 +62,6 @@ export default {
   async asyncData({ params, $axios }) {
     const productId = params.id
     const { data: product } = await getProductById($axios, productId)
-    // console.log(product.data)
     return { productId, product }
   },
   data() {
@@ -79,15 +79,15 @@ export default {
         updated_date: Number
       },
       cartInfo: {
-        id: String,
-        product_id: String,
-        name: String,
-        sku_id: String,
-        standard: String,
-        price: Number,
-        photo: String,
-        created_date: Number,
-        updated_date: Number
+        id: '',
+        product_id: '',
+        name: '',
+        sku_id: '',
+        standard: '',
+        price: 0,
+        photo: '',
+        created_date: 0,
+        updated_date: 0
       },
       orderInfo: {
         id: String,
@@ -102,7 +102,8 @@ export default {
         updated_date: Number
       },
       skus: [],
-      sku: {}
+      sku: {},
+      isCart: false
     }
   },
   computed: {
@@ -113,7 +114,6 @@ export default {
   },
   created() {
     this.getSku()
-    // console.log(this.skus)
   },
   methods: {
     // TODO: 找到该商品的规格信息
@@ -143,9 +143,8 @@ export default {
       }
     },
     // TODO: 把该商品添加到购物车
-    addCart(productId, skuId) {
+    async addCart(productId, skuId) {
       // 检查是否已经登录
-      console.log(this.getUserInfo)
 
       // 检查传递的产品 id是否为空和产品规格选择 id是否为空
       if (productId !== null && skuId !== null) {
@@ -153,13 +152,50 @@ export default {
         this.cartInfo.product_id = productId
         this.cartInfo.sku_id = skuId
 
-        const result = createCart(this.$axios, this.cartInfo)
-        if (result.result) {
+        const { data } = await createCart(this.$axios, this.cartInfo)
+        if (data.result) {
           // 返回购物车的 id (或者用于页面跳转)
-          // const cartId = result.id
+          const cartId = data.id
+          const user = this.getUserInfo
+
+          // TODO: 判断购物车是否为空
+          if (user.cart_ids != null) {
+            const { cart_ids: cartIds, id } = user
+
+            const ids = cartIds.trim().split(',')
+            ids.push(cartId)
+            const newUser = { id, cart_ids: ids.toString() }
+            editUserById(this.$axios, newUser).then((res) => {
+              const { code } = res
+              if (code === 200) {
+                this.$notify({
+                  type: 'primary',
+                  message: '成功添加购物车',
+                  background: '#f3d7d5'
+                })
+              }
+            })
+          } else {
+            const { id } = user
+            const newUser = { id, cart_ids: cartId }
+            editUserById(this.$axios, newUser).then((res) => {
+              const { code } = res
+              if (code === 200) {
+                this.$notify({
+                  type: 'primary',
+                  message: '成功添加购物车',
+                  background: '#f3d7d5'
+                })
+              }
+            })
+          }
         }
       } else {
-        // FIXME: 进行前端通知
+        // 进行前端通知√
+        this.$notify({
+          type: 'danger',
+          message: '成功添加购物车失败~'
+        })
       }
     },
     // TODO: 把该商品添加到我的订单 (同时需要跳转页面到支付页面 (不打算做支付页面了, 功能复杂))
@@ -184,10 +220,21 @@ export default {
     },
     buy() {
       this.showSku = !this.showSku
+      this.isCart = false
+    },
+    cart() {
+      this.showSku = !this.showSku
+      this.isCart = true
     },
     chooseSkuId(skuId) {
       this.showSku = !this.showSku
-      this.addOrder(this.productInfo.product_id, skuId)
+      if (this.isCart) {
+        // console.log(`cart:`)
+        this.addCart(this.productInfo.product_id, skuId)
+      } else {
+        // console.log(`order:`)
+        this.addOrder(this.productInfo.product_id, skuId)
+      }
     },
     close(state) {
       this.showSku = !state

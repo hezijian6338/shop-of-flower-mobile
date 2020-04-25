@@ -49,7 +49,7 @@ export default {
 
     const user = store.state.user.userInfo
 
-    console.log(user)
+    // console.log(user)
 
     return { userId, user }
   },

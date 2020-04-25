@@ -2,18 +2,24 @@ import { login } from '~/api/user'
 
 export const state = () => ({
   userInfo: {
-    id: String,
-    phone: String,
-    password: String,
-    name: String,
-    role: Number,
-    order_ids: String,
-    cart_ids: String,
-    created_date: String,
-    updated_date: String
+    id: '',
+    phone: '',
+    password: '',
+    name: '',
+    role: 0,
+    order_ids: '',
+    cart_ids: '',
+    created_date: '',
+    updated_date: ''
   },
-  token: String
+  token: ''
 })
+
+export const mutations = {
+  SET_INFO: (state, userInfo) => {
+    state.userInfo = userInfo
+  }
+}
 
 export const getters = {
   // TODO: 放回当前用户的电话号码
@@ -47,7 +53,7 @@ export const getters = {
 
 // TODO: 用户登录, 并且纪录登陆信息
 export const actions = {
-  async Login(state, { phone, password }) {
+  async Login({ commit }, { phone, password }) {
     const result = await login(this.$axios, { phone, password })
 
     const { token, user } = result.data
@@ -55,7 +61,8 @@ export const actions = {
 
     await this.$axios.setHeader('Authorization', token)
 
-    state.userInfo = { ...user }
-    state.token = { ...token }
+    // state.userInfo = await { ...user }
+    // state.token = await { ...token }
+    await commit('SET_INFO', user)
   }
 }

@@ -7,6 +7,9 @@
         <span class="m2">评价</span>
         <span class="m3">商品</span>
       </div>
+      <div class="cart-button float-left" @click="pageSwitch('cart')">
+        <img src="~/assets/png/cart.png" />
+      </div>
       <div class="logo float-left">
         <img class="object-bottom pt-2" src="~/assets/png/logo2.png" />
       </div>
@@ -76,6 +79,11 @@ export default {
       }
       if (page === 'shop') {
         this.$router.push('/shop')
+        this.pageInMine = false
+        this.pageInDis = false
+      }
+      if (page === 'cart') {
+        this.$router.push('/cart')
         this.pageInMine = false
         this.pageInDis = false
       }
@@ -156,6 +164,14 @@ export default {
   height: 38px;
   background: rgba(243, 173, 173, 1);
   border-radius: 10px;
+}
+
+.cart-button {
+  position: absolute;
+  margin-top: 85vh;
+  margin-left: 6px;
+  width: 32px;
+  height: 32px;
 }
 
 .contain-bottom {

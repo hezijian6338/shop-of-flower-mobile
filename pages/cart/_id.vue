@@ -6,10 +6,10 @@
 import { getCartById, deleteCartById } from '../../api/cart'
 import { createOrder } from '../../api/order'
 export default {
-  async asyncData({ params }) {
+  async asyncData({ $axios, params, store }) {
     const cartId = params.id
     // TODO: 页面加载前, 预先加载购物车的数据 (某一个详情)
-    const cart = await getCartById(cartId)
+    const cart = await getCartById($axios, cartId)
     return { cartId, cart }
   },
   data() {

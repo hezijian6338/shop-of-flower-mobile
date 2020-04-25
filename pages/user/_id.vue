@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { getUserById, editUserById } from '@/api/user'
+import { editUserById } from '@/api/user'
 
 export default {
   fetch({ store }) {
@@ -34,7 +34,7 @@ export default {
     })
   },
 
-  async asyncData({ params, $axios, store }) {
+  asyncData({ params, $axios, store }) {
     const userId = params.id
 
     // console.log(store.state.user.token)
@@ -45,7 +45,11 @@ export default {
 
     // await $axios.setHeader('Authorization', token)
 
-    const user = await getUserById($axios, userId)
+    // const user = await getUserById($axios, userId)
+
+    const user = store.state.user.userInfo
+
+    console.log(user)
 
     return { userId, user }
   },

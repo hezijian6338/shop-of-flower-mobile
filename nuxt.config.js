@@ -38,6 +38,10 @@ export default {
     {
       src: '~/plugins/axios',
       ssr: false
+    },
+    {
+      src: '~/plugins/vui',
+      ssr: false
     }
   ],
   /*
@@ -81,7 +85,8 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) {},
+    transpile: ['vant']
   },
   router: {
     middleware: 'pageIndex'

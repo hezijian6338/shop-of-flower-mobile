@@ -28,8 +28,11 @@
         </div>
       </div>
       <!-- <div class="content-info sticky top-0"></div> -->
-      <div class="info-buy" @click="buy">
-        <span>购买</span>
+      <div class="button">
+        <div class="info-buy inline-block" @click="buy">
+          <span>购买</span>
+        </div>
+        <img class="inline-block" src="~/assets/png/toCart.png" />
       </div>
     </div>
     <div v-if="showSku" class="sku">
@@ -103,7 +106,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ getPageIndex: 'page/getPageIndex' })
+    ...mapGetters({
+      getPageIndex: 'page/getPageIndex',
+      getUserInfo: 'user/CurrentInfo'
+    })
   },
   created() {
     this.getSku()
@@ -138,7 +144,10 @@ export default {
     },
     // TODO: 把该商品添加到购物车
     addCart(productId, skuId) {
-      // TODO: 检查传递的产品 id是否为空和产品规格选择 id是否为空
+      // 检查是否已经登录
+      console.log(this.getUserInfo)
+
+      // 检查传递的产品 id是否为空和产品规格选择 id是否为空
       if (productId !== null && skuId !== null) {
         // TODO: 后端会根据这两个 id自动填充剩余信息, 所以其他字段不必继续存储
         this.cartInfo.product_id = productId
@@ -262,8 +271,12 @@ export default {
   color: rgba(150, 156, 153, 1);
 }
 
-.info-buy {
+.button {
   margin: 30px auto 0;
+  width: 77vw;
+}
+
+.info-buy {
   width: 256px;
   height: 50px;
   text-align: center;
@@ -279,6 +292,11 @@ export default {
   font-family: Adobe Heiti Std;
   font-weight: normal;
   color: rgba(255, 255, 255, 1);
+}
+
+.button > img {
+  width: 28px;
+  height: 28px;
 }
 
 .content-info {

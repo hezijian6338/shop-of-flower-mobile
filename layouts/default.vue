@@ -14,7 +14,10 @@
         <img class="object-bottom pt-2" src="~/assets/png/logo2.png" />
       </div>
       <div class="avatar float-right"></div>
-      <div class="main-contain">
+      <div
+        class="main-contain"
+        :class="{ 'contain-product': getPageIndex === 'product-id' }"
+      >
         <div class="show-area relative">
           <nuxt />
         </div>
@@ -156,6 +159,10 @@ export default {
   height: 94vh;
   background: rgba(211, 227, 229, 1);
   border-radius: 0px 0px 0px 25px;
+}
+
+.contain-product {
+  background: #f3d7d5 !important;
 }
 
 .contain-button {

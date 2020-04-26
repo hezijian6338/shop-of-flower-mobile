@@ -55,7 +55,8 @@
 import { mapGetters } from 'vuex'
 import { getCartsByUserId, deleteCartById } from '../../api/cart'
 import { createOrder } from '@/api/order'
-// import { editUserById } from '@/api/user'
+import { editUserById } from '@/api/user'
+import { inject, pass } from '@/utils/ids'
 
 export default {
   async asyncData({ $axios, params, store }) {
@@ -116,7 +117,9 @@ export default {
           message: '用户没登陆, 请先登陆~'
         })
       }
-      const orderIds = []
+
+      // TODO: 处理订单信息
+      let orderIds = []
       for (const cart of this.result) {
         this.orderInfo.product_id = cart.product_id
         this.orderInfo.sku_id = cart.sku_id
@@ -124,47 +127,54 @@ export default {
 
         if (data.result) {
           orderIds.push(data.id)
-          // const cartIds = this.cartIds()
-          // FIXME: 这里比较麻烦... 因为涉及到数组的判断, 和添加, 还有删除...
-          // const newUser = { id: user.id, cart_ids: cartIds }
         }
       }
-      console.log(this.cartIds())
+      // 这里比较麻烦... 因为涉及到数组的判断, 和添加, 还有删除...√
+      orderIds = inject(user.order_ids, orderIds).concat([])
+
+      // TODO: 处理购物车
+      const remove = []
+      const origin = []
+      for (const item of this.result) {
+        remove.push(item.id)
+        await this.delCart(item.id)
+      }
+      this.carts.forEach((item) => {
+        origin.push(item.id)
+      })
+      const cartIds = pass(origin, remove)
+
+      const newUser = {
+        id: user.id,
+        cart_ids: cartIds.toString(),
+        order_ids: orderIds.toString()
+      }
+
+      const { code } = await editUserById(this.$axios, newUser)
+      if (code === 200) {
+        this.$notify({
+          type: 'success',
+          message: '添加订单成功~',
+          background: '#f3d7d5'
+        })
+        this.$router.push('/pay/' + orderIds.toString())
+      }
     },
-    delCart(cartId) {
+    async delCart(cartId) {
       if (cartId !== null) {
-        const { code } = deleteCartById(cartId)
+        const { code } = await deleteCartById(this.$axios, cartId)
         if (code === 200) {
           // 删除成功
           this.$notify({
             type: 'danger',
             message: '删除成功~'
           })
+          return true
         } else {
           // 删除错误
+          return false
         }
       }
-    },
-    cartIds() {
-      let lastCarts = []
-      const index = []
-      // 选择的商品
-      this.result.forEach((cart) => {
-        // 购物车列表
-        this.carts.forEach((item, i) => {
-          if (cart.id === item.id) {
-            index.push(i)
-          }
-        })
-      })
-      lastCarts = this.carts
-      index.forEach((item) => {
-        lastCarts.slice(item, 1)
-        console.log(lastCarts)
-      })
-      console.log(index)
-
-      return lastCarts
     }
   }
 }

@@ -16,11 +16,11 @@ export async function editCartById(axios, cartId) {
 }
 
 export async function createCart(axios, cart) {
-  const result = await axios.post('/cart', cart)
+  const result = await axios.post('/cart/', cart)
   return result
 }
 
 export async function deleteCartById(axios, cartId) {
-  const result = await axios.delete('/cart' + cartId)
+  const result = await axios.delete('/cart/' + cartId)
   return result
 }

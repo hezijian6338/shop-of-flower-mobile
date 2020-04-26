@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="main-contain">
-      <van-checkbox-group v-model="result">
+      <van-checkbox-group v-if="carts.length === 0" v-model="result">
         <div
           v-for="cart in carts"
           :key="cart.id"
@@ -44,6 +44,7 @@
           </div>
         </div>
       </van-checkbox-group>
+      <div v-else class="info grid grid-cols-8 gap-2"></div>
     </div>
     <div class="pay-button text-center" @click="toBuy">
       <span>去支付 ¥{{ totalPrice }}</span>
@@ -106,6 +107,15 @@ export default {
     ...mapGetters({
       getUserInfo: 'user/CurrentInfo'
     })
+  },
+  mounted() {
+    const user = this.getUserInfo
+    if (user === null) {
+      this.$notify({
+        type: 'danger',
+        message: '用户没登陆, 请先登陆~'
+      })
+    }
   },
   methods: {
     // TODO: 购买 ==>> 添加订单 ==>> 付款页面

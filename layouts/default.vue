@@ -60,7 +60,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ getPageIndex: 'page/getPageIndex' })
+    ...mapGetters({
+      getPageIndex: 'page/getPageIndex',
+      getUserInfo: 'user/CurrentInfo'
+    })
   },
   methods: {
     pageSwitch(page) {
@@ -86,9 +89,17 @@ export default {
         this.pageInDis = false
       }
       if (page === 'cart') {
-        this.$router.push('/cart')
-        this.pageInMine = false
-        this.pageInDis = false
+        if (this.getUserInfo === null) {
+          this.$notify({
+            type: 'danger',
+            message: '用户没登陆, 请先登陆~'
+          })
+          this.$router.push('/user/5')
+        } else {
+          this.$router.push('/cart')
+          this.pageInMine = false
+          this.pageInDis = false
+        }
       }
     }
   }

@@ -6,7 +6,7 @@
         <p>Reeyoung</p>
       </div>
       <div class="user-option h-10">
-        <div class="pay mr-10">
+        <div class="pay mr-10" @click="toPageInfo">
           <img src="~/assets/png/pay.png" />
         </div>
         <div class="service mr-10">
@@ -76,6 +76,9 @@ export default {
       if (Reflect.has(result, 'code')) {
         // result.info为执行出错的信息
       }
+    },
+    toPageInfo() {
+      this.$router.push('/user/info')
     }
   }
 }

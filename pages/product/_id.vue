@@ -204,15 +204,46 @@ export default {
         this.orderInfo.product_id = productId
         this.orderInfo.sku_id = skuId
 
-        // console.log(`this.orderInfo`)
+        const { data } = await createOrder(this.$axios, this.orderInfo)
 
-        const { data: res } = await createOrder(this.$axios, this.orderInfo)
-        // console.log(res)
-
-        if (res.result) {
+        if (data.result) {
           // 返回订单 id (用于页面跳转)
-          const orderId = res.id
-          this.$router.push('/pay/' + orderId)
+          const orderId = data.id
+          const user = this.getUserInfo
+
+          // TODO: 判断购物车是否为空
+          if (user.order_ids != null) {
+            const { order_ids: orderIds, id } = user
+
+            const ids = orderIds.trim().split(',')
+            ids.push(orderId)
+            const newUser = { id, order_ids: ids.toString() }
+            editUserById(this.$axios, newUser).then((res) => {
+              const { code } = res
+              if (code === 200) {
+                this.$notify({
+                  type: 'primary',
+                  message: '创建订单成功',
+                  background: '#f3d7d5'
+                })
+                this.$router.push('/pay/' + orderId)
+              }
+            })
+          } else {
+            const { id } = user
+            const newUser = { id, order_ids: orderId }
+            editUserById(this.$axios, newUser).then((res) => {
+              const { code } = res
+              if (code === 200) {
+                this.$notify({
+                  type: 'primary',
+                  message: '创建订单成功',
+                  background: '#f3d7d5'
+                })
+                this.$router.push('/pay/' + orderId)
+              }
+            })
+          }
         } else {
           // FIXME: 进行前端通知
         }

@@ -47,12 +47,12 @@ export default {
         this.orderInfo.sku_id = skuId
 
         // 执行下单方法
-        const result = createOrder(this.orderInfo)
+        const { data } = createOrder(this.orderInfo)
 
         // 检查返回结果信息
-        if (result.result) {
+        if (data.result) {
           // 返回订单 id
-          // const orderId = result.id
+          // const orderId = data.id
 
           // TODO: 需要执行购物车信息删除
           this.delCart(this.cartInfo.id)
@@ -66,9 +66,13 @@ export default {
     // TODO: 删除购物车的商品
     delCart(cartId) {
       if (cartId !== null) {
-        const result = deleteCartById(cartId)
-        if (result) {
+        const { code } = deleteCartById(cartId)
+        if (code === 200) {
           // 删除成功
+          this.$notify({
+            type: 'danger',
+            message: '删除成功~'
+          })
         } else {
           // 删除错误
         }

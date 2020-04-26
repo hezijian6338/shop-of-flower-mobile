@@ -165,7 +165,7 @@ export default {
             const ids = cartIds.trim().split(',')
             ids.push(cartId)
             const newUser = { id, cart_ids: ids.toString() }
-            editUserById(this.$axios, newUser).then((res) => {
+            await editUserById(this.$axios, newUser).then((res) => {
               const { code } = res
               if (code === 200) {
                 this.$notify({
@@ -178,7 +178,7 @@ export default {
           } else {
             const { id } = user
             const newUser = { id, cart_ids: cartId }
-            editUserById(this.$axios, newUser).then((res) => {
+            await editUserById(this.$axios, newUser).then((res) => {
               const { code } = res
               if (code === 200) {
                 this.$notify({
@@ -194,7 +194,7 @@ export default {
         // 进行前端通知√
         this.$notify({
           type: 'danger',
-          message: '成功添加购物车失败~'
+          message: '添加购物车失败~'
         })
       }
     },
@@ -226,7 +226,9 @@ export default {
                   message: '创建订单成功',
                   background: '#f3d7d5'
                 })
-                this.$router.push('/pay/' + orderId)
+                const orderIds = []
+                orderIds.push(orderId)
+                this.$router.push('/pay/' + orderIds.toString())
               }
             })
           } else {
@@ -240,12 +242,18 @@ export default {
                   message: '创建订单成功',
                   background: '#f3d7d5'
                 })
-                this.$router.push('/pay/' + orderId)
+                const orderIds = []
+                orderIds.push(orderId)
+                this.$router.push('/pay/' + orderIds.toString())
               }
             })
           }
         } else {
-          // FIXME: 进行前端通知
+          // 进行前端通知√
+          this.$notify({
+            type: 'danger',
+            message: '下单失败~'
+          })
         }
       }
     },
@@ -260,10 +268,8 @@ export default {
     chooseSkuId(skuId) {
       this.showSku = !this.showSku
       if (this.isCart) {
-        // console.log(`cart:`)
         this.addCart(this.productInfo.product_id, skuId)
       } else {
-        // console.log(`order:`)
         this.addOrder(this.productInfo.product_id, skuId)
       }
     },

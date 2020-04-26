@@ -5,29 +5,38 @@
         <!-- <div class="info-photo">
           <img src="http://photo.dragonsking.cn/2020/04/08/606ea57aef693.jpg" />
         </div> -->
-        <div class="info grid grid-cols-7 gap-2">
-          <div class="info-photo col-span-2 text-center">
-            <img v-if="order.photo !== undefined" :src="order.photo" />
-            <img
-              v-else
-              src="http://photo.dragonsking.cn/2020/04/08/606ea57aef693.jpg"
-            />
-          </div>
-          <div class="main-info col-span-4 grid grid-rows-3 grid-flow-1 gap-1">
-            <div v-if="order.name !== undefined" class="title row-span-1">
-              {{ order.name }}
+        <div v-for="order in orders" :key="order.id">
+          <div class="info grid grid-cols-7 gap-2">
+            <div class="info-photo col-span-2 text-center">
+              <img v-if="order.photo !== undefined" :src="order.photo" />
+              <img
+                v-else
+                src="http://photo.dragonsking.cn/2020/04/08/606ea57aef693.jpg"
+              />
             </div>
-            <div v-else class="title row-span-1">挚爱-进口玫瑰</div>
-            <div v-if="order.standard !== undefined" class="content row-span-2">
-              {{ order.standard }}
+            <div
+              class="main-info col-span-4 grid grid-rows-3 grid-flow-1 gap-1"
+            >
+              <div v-if="order.name !== undefined" class="title row-span-1">
+                {{ order.name }}
+              </div>
+              <div v-else class="title row-span-1">挚爱-进口玫瑰</div>
+              <div
+                v-if="order.standard !== undefined"
+                class="content row-span-2"
+              >
+                {{ order.standard }}
+              </div>
+              <div v-else class="content row-span-2">
+                1个月4束，周一收花，品种自选
+              </div>
             </div>
-            <div v-else class="content row-span-2">
-              1个月4束，周一收花，品种自选
+            <div
+              class="price-info col-span-1 grid grid-rows-3 grid-flow-1 gap-1"
+            >
+              <div class="price row-span-1">¥399.00</div>
+              <div class="number row-span-2">x1</div>
             </div>
-          </div>
-          <div class="price-info col-span-1 grid grid-rows-3 grid-flow-1 gap-1">
-            <div class="price row-span-1">¥399.00</div>
-            <div class="number row-span-2">x1</div>
           </div>
         </div>
         <div class="protocol grid grid-rows-3 grid-flow-col gap-2">
@@ -73,10 +82,15 @@
 import { getOrderById } from '../../api/order'
 export default {
   async asyncData({ params, $axios }) {
-    const orderId = params.id
-    const { data: order } = await getOrderById($axios, orderId)
+    const ids = params.ids
+    const orderIds = ids.trim().split(',')
+    const orders = []
+    for (const id of orderIds) {
+      const { data: order } = await getOrderById($axios, id)
+      orders.push(order)
+    }
 
-    return { orderId, order }
+    return { orders }
   },
   data() {
     return {

@@ -45,14 +45,17 @@
         </div>
       </van-checkbox-group>
     </div>
-    <div class="pay-button text-center">
+    <div class="pay-button text-center" @click="toBuy">
       <span>去支付 ¥{{ totalPrice }}</span>
     </div>
   </div>
 </template>
 
 <script>
-import { getCartsByUserId } from '../../api/cart'
+import { mapGetters } from 'vuex'
+import { getCartsByUserId, deleteCartById } from '../../api/cart'
+import { createOrder } from '@/api/order'
+// import { editUserById } from '@/api/user'
 
 export default {
   async asyncData({ $axios, params, store }) {
@@ -75,6 +78,18 @@ export default {
         created_date: String,
         updated_date: String
       },
+      orderInfo: {
+        id: String,
+        product_id: String,
+        name: String,
+        sku_id: String,
+        standard: String,
+        price: Number,
+        photo: String,
+        state: Number,
+        created_date: Number,
+        updated_date: Number
+      },
       result: [],
       price: 0
     }
@@ -86,6 +101,70 @@ export default {
         price = cart.price + price
       })
       return price
+    },
+    ...mapGetters({
+      getUserInfo: 'user/CurrentInfo'
+    })
+  },
+  methods: {
+    // TODO: 购买 ==>> 添加订单 ==>> 付款页面
+    async toBuy() {
+      const user = this.getUserInfo
+      if (user === null) {
+        this.$notify({
+          type: 'danger',
+          message: '用户没登陆, 请先登陆~'
+        })
+      }
+      const orderIds = []
+      for (const cart of this.result) {
+        this.orderInfo.product_id = cart.product_id
+        this.orderInfo.sku_id = cart.sku_id
+        const { data } = await createOrder(this.$axios, this.orderInfo)
+
+        if (data.result) {
+          orderIds.push(data.id)
+          // const cartIds = this.cartIds()
+          // FIXME: 这里比较麻烦... 因为涉及到数组的判断, 和添加, 还有删除...
+          // const newUser = { id: user.id, cart_ids: cartIds }
+        }
+      }
+      console.log(this.cartIds())
+    },
+    delCart(cartId) {
+      if (cartId !== null) {
+        const { code } = deleteCartById(cartId)
+        if (code === 200) {
+          // 删除成功
+          this.$notify({
+            type: 'danger',
+            message: '删除成功~'
+          })
+        } else {
+          // 删除错误
+        }
+      }
+    },
+    cartIds() {
+      let lastCarts = []
+      const index = []
+      // 选择的商品
+      this.result.forEach((cart) => {
+        // 购物车列表
+        this.carts.forEach((item, i) => {
+          if (cart.id === item.id) {
+            index.push(i)
+          }
+        })
+      })
+      lastCarts = this.carts
+      index.forEach((item) => {
+        lastCarts.slice(item, 1)
+        console.log(lastCarts)
+      })
+      console.log(index)
+
+      return lastCarts
     }
   }
 }

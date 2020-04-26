@@ -145,9 +145,16 @@ export default {
     // TODO: 把该商品添加到购物车
     async addCart(productId, skuId) {
       // 检查是否已经登录
+      const user = this.getUserInfo
+      if (user === null) {
+        this.$notify({
+          type: 'danger',
+          message: '用户没登陆, 请先登陆~'
+        })
+      }
 
       // 检查传递的产品 id是否为空和产品规格选择 id是否为空
-      if (productId !== null && skuId !== null) {
+      if (productId !== null && skuId !== null && user !== null) {
         // TODO: 后端会根据这两个 id自动填充剩余信息, 所以其他字段不必继续存储
         this.cartInfo.product_id = productId
         this.cartInfo.sku_id = skuId
@@ -156,7 +163,6 @@ export default {
         if (data.result) {
           // 返回购物车的 id (或者用于页面跳转)
           const cartId = data.id
-          const user = this.getUserInfo
 
           // TODO: 判断购物车是否为空
           if (user.cart_ids != null) {
@@ -200,7 +206,14 @@ export default {
     },
     // TODO: 把该商品添加到我的订单 (同时需要跳转页面到支付页面 (不打算做支付页面了, 功能复杂))
     async addOrder(productId, skuId) {
-      if (productId !== null && skuId !== null) {
+      const user = this.getUserInfo
+      if (user === null) {
+        this.$notify({
+          type: 'danger',
+          message: '用户没登陆, 请先登陆~'
+        })
+      }
+      if (productId !== null && skuId !== null && user !== null) {
         this.orderInfo.product_id = productId
         this.orderInfo.sku_id = skuId
 
@@ -209,8 +222,6 @@ export default {
         if (data.result) {
           // 返回订单 id (用于页面跳转)
           const orderId = data.id
-          const user = this.getUserInfo
-
           // TODO: 判断购物车是否为空
           if (user.order_ids != null) {
             const { order_ids: orderIds, id } = user

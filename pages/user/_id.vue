@@ -5,18 +5,22 @@
       <div class="username w-16">
         <p>Reeyoung</p>
       </div>
-      <div class="user-option h-10">
-        <div class="pay mr-10" @click="toPageInfo">
-          <img src="~/assets/png/pay.png" />
+      <div class="user-option h-10 text-center">
+        <div class="pay mr-6" @click="toPageInfo">
+          <img class="object-contain" src="~/assets/png/pay.png" />
+          <span>代付款</span>
         </div>
-        <div class="service mr-10">
-          <img src="~/assets/png/service.png" />
+        <div class="service mr-6">
+          <img class="object-contain" src="~/assets/png/service.png" />
+          <span>待发货</span>
         </div>
-        <div class="comment mr-10">
-          <img src="~/assets/png/order.png" />
+        <div class="comment mr-6">
+          <img class="object-contain" src="~/assets/png/order.png" />
+          <span>已发货</span>
         </div>
         <div class="finish">
-          <img src="~/assets/png/finish.png" />
+          <img class="object-contain" src="~/assets/png/finish.png" />
+          <span>待评价</span>
         </div>
       </div>
     </div>
@@ -104,17 +108,26 @@ export default {
 
 .user-option {
   margin: 15px auto 0;
-  width: 211px;
+  width: 80vw;
 }
 
 .user-option > div {
   display: inline-block;
-  width: 19.5px;
+  /* width: 19.5px; */
   height: 19.5px;
 }
 
 .user-option > div > img {
-  width: 19.5px;
+  width: 100%;
   height: 19.5px;
+}
+
+.user-option > div > span {
+  /* width: 35px; */
+  /* height: 12px; */
+  font-size: 12px;
+  font-family: Adobe Heiti Std;
+  font-weight: normal;
+  color: rgba(0, 0, 0, 1);
 }
 </style>

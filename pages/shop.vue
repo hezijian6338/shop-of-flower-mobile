@@ -196,11 +196,11 @@ export default {
   /* height: 80px; */
 }
 
-.item-photo > img {
-  /* margin: 10px 0 10px 10px; */
-  /* max-height: 83px; */
-  /* max-width: 83px; */
-}
+/* .item-photo > img { */
+/* margin: 10px 0 10px 10px; */
+/* max-height: 83px; */
+/* max-width: 83px; */
+/* } */
 
 /* .item-name { */
 /* margin-top: 30px; */

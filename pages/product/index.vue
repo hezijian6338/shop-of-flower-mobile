@@ -126,9 +126,9 @@ export default {
   border-radius: 10px;
 }
 
-.product {
-  /* margin: 0 auto; */
-}
+/* .product { */
+/* margin: 0 auto; */
+/* } */
 
 .product-item > .photo {
   margin: 0 auto;

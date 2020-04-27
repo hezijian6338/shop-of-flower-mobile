@@ -1,9 +1,11 @@
 <template>
-  <van-tabs v-model="active" color="#000000">
+  <van-tabs v-model="index" color="#000000">
     <van-tab title="全部"><orderList :orders="all"/></van-tab>
-    <van-tab title="待付款"><orderList :orders="wait2pay"/></van-tab>
-    <van-tab title="待发货"><orderList :orders="wait2deliver"/></van-tab>
-    <van-tab title="已发货"><orderList :orders="deliver"/></van-tab>
+    <van-tab title="待付款" name="0"><orderList :orders="wait2pay"/></van-tab>
+    <van-tab title="待发货" name="1"
+      ><orderList :orders="wait2deliver"
+    /></van-tab>
+    <van-tab title="已发货" name="2"><orderList :orders="deliver"/></van-tab>
   </van-tabs>
 </template>
 
@@ -14,12 +16,14 @@ import { getOrdersByUserId } from '@/api/order'
 export default {
   layout: 'none',
   components: { orderList },
-  async asyncData({ store, $axios }) {
+  async asyncData({ store, $axios, params }) {
+    const index = params.id
+
     const userId = store.state.user.userInfo.id
     // TODO: 根据用户 id返回该用户的订单信息列表
     const { data: orders } = await getOrdersByUserId($axios, userId)
 
-    return { userId, orders }
+    return { userId, orders, index }
   },
   data() {
     return {

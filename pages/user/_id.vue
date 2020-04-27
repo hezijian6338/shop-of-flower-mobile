@@ -6,15 +6,15 @@
         <p>Reeyoung</p>
       </div>
       <div class="user-option h-10 text-center">
-        <div class="pay mr-6" @click="toPageInfo">
+        <div class="pay mr-6" @click="toPageInfo(0)">
           <img class="object-contain" src="~/assets/png/pay.png" />
           <span>代付款</span>
         </div>
-        <div class="service mr-6">
+        <div class="service mr-6" @click="toPageInfo(1)">
           <img class="object-contain" src="~/assets/png/service.png" />
           <span>待发货</span>
         </div>
-        <div class="comment mr-6">
+        <div class="comment mr-6" @click="toPageInfo(2)">
           <img class="object-contain" src="~/assets/png/order.png" />
           <span>已发货</span>
         </div>
@@ -69,8 +69,8 @@ export default {
         // result.info为执行出错的信息
       }
     },
-    toPageInfo() {
-      this.$router.push('/user/info')
+    toPageInfo(index) {
+      this.$router.push('/user/info/' + index)
     }
   }
 }

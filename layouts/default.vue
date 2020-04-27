@@ -39,7 +39,7 @@
         </div>
         <div
           class="button"
-          :class="{ choose: getPageIndex !== 'dis' }"
+          :class="{ choose: getPageIndex === 'user-id' }"
           @click="pageSwitch('mine')"
         >
           <span class="">我的</span>

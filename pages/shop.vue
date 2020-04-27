@@ -42,11 +42,11 @@
         @click="toPageInfo(limit.product_id)"
       >
         <div class="grid grid-cols-8">
-          <div class="item-photo col-span-4">
+          <div class="item-photo col-span-4 text-center">
             <img
               v-if="limit.photo !== undefined"
               :src="limit.photo"
-              class="object-contain"
+              class="object-contain w-full h-full"
             />
             <img v-else src="~/assets/png/limit1.png" />
           </div>
@@ -188,24 +188,25 @@ export default {
 }
 
 .item-photo {
+  padding: 0 10px 0 10px;
   /* margin: 12px 0 12px 12px; */
-  min-height: 149px;
+  /* min-height: 149px; */
   /* float: left; */
   /* width: 80px; */
   /* height: 80px; */
 }
 
 .item-photo > img {
-  margin: 10px 0 10px 10px;
+  /* margin: 10px 0 10px 10px; */
   /* max-height: 83px; */
   /* max-width: 83px; */
 }
 
-.item-name {
-  /* margin-top: 30px; */
-  /* margin-left: 20px; */
-  /* float: left; */
-}
+/* .item-name { */
+/* margin-top: 30px; */
+/* margin-left: 20px; */
+/* float: left; */
+/* } */
 
 .item-name > span {
   /* width: 92px; */
@@ -216,11 +217,11 @@ export default {
   color: rgba(58, 57, 57, 1);
 }
 
-.item-price {
-  /* width: 120px; */
-  /* float: left; */
-  /* text-align: center; */
-}
+/* .item-price { */
+/* width: 120px; */
+/* float: left; */
+/* text-align: center; */
+/* } */
 
 .item-price > span {
   /* width: 24px; */

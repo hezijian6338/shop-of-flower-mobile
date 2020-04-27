@@ -37,19 +37,7 @@ export default {
   asyncData({ params, $axios, store }) {
     const userId = params.id
 
-    // console.log(store.state.user.token)
-
-    // const token = store.state.user.token
-
-    // console.log(token)
-
-    // await $axios.setHeader('Authorization', token)
-
-    // const user = await getUserById($axios, userId)
-
     const user = store.state.user.userInfo
-
-    // console.log(user)
 
     return { userId, user }
   },

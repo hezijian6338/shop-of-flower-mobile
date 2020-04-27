@@ -2,9 +2,6 @@
   <div>
     <div class="pay-content">
       <div class="product-info">
-        <!-- <div class="info-photo">
-          <img src="http://photo.dragonsking.cn/2020/04/08/606ea57aef693.jpg" />
-        </div> -->
         <div v-for="order in orders" :key="order.id">
           <div class="info grid grid-cols-7 gap-2">
             <div class="info-photo col-span-2 text-center">

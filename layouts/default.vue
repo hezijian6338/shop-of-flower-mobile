@@ -32,14 +32,14 @@
       <div v-else class="contain-bottom float-left">
         <div
           class="button"
-          :class="{ choose: pageInDis }"
+          :class="{ choose: getPageIndex === 'dis' }"
           @click="pageSwitch('dis')"
         >
           <span>发现</span>
         </div>
         <div
           class="button"
-          :class="{ choose: pageInMine }"
+          :class="{ choose: getPageIndex !== 'dis' }"
           @click="pageSwitch('mine')"
         >
           <span class="">我的</span>

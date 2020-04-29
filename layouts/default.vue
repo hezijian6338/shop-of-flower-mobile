@@ -14,7 +14,7 @@
         <img class="object-bottom pt-2" src="~/assets/png/logo2.png" />
       </div>
       <div class="avatar float-right">
-        <img v-if="user.avatar !== null" :src="user.avatar" />
+        <img :src="avatar" />
       </div>
       <div
         class="main-contain"
@@ -55,8 +55,8 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  asyncData({ store }) {
-    const user = store.state.user.userInfo
+  async asyncData({ store }) {
+    const user = await store.state.user.userInfo
 
     return { user }
   },
@@ -70,7 +70,14 @@ export default {
     ...mapGetters({
       getPageIndex: 'page/getPageIndex',
       getUserInfo: 'user/CurrentInfo'
-    })
+    }),
+    avatar() {
+      if (this.getUserInfo) {
+        return this.getUserInfo.avatar
+      } else {
+        return ''
+      }
+    }
   },
   methods: {
     pageSwitch(page) {

@@ -33,12 +33,12 @@
 import { editUserById } from '@/api/user'
 
 export default {
-  fetch({ store }) {
-    store.dispatch('user/Login', {
-      phone: '13160666721',
-      password: '12345678'
-    })
-  },
+  // fetch({ store }) {
+  //   store.dispatch('user/Login', {
+  //     phone: '13160666721',
+  //     password: '12345678'
+  //   })
+  // },
 
   asyncData({ params, $axios, store }) {
     const userId = params.id

@@ -13,7 +13,9 @@
       <div class="logo float-left">
         <img class="object-bottom pt-2" src="~/assets/png/logo2.png" />
       </div>
-      <div class="avatar float-right"></div>
+      <div class="avatar float-right">
+        <img v-if="user.avatar !== null" :src="user.avatar" />
+      </div>
       <div
         class="main-contain"
         :class="{ 'contain-product': getPageIndex === 'product-id' }"
@@ -53,6 +55,11 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  asyncData({ store }) {
+    const user = store.state.user.userInfo
+
+    return { user }
+  },
   data() {
     return {
       pageInMine: false,
@@ -154,6 +161,11 @@ export default {
   margin-right: 13px;
   width: 48px;
   height: 48px;
+  border: 3px solid rgba(255, 255, 255, 1);
+  border-radius: 50%;
+}
+
+.avatar > img {
   border: 3px solid rgba(255, 255, 255, 1);
   border-radius: 50%;
 }

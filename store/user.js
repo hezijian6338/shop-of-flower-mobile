@@ -7,6 +7,7 @@ export const state = () => ({
     password: '',
     name: '',
     role: 0,
+    avatar: '',
     order_ids: '',
     cart_ids: '',
     created_date: '',
@@ -36,6 +37,7 @@ export const getters = {
           phone: state.userInfo.phone,
           name: state.userInfo.name,
           role: state.userInfo.role,
+          avatar: state.userInfo.avatar,
           order_ids: state.userInfo.order_ids,
           cart_ids: state.userInfo.cart_ids
         }

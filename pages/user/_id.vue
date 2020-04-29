@@ -1,9 +1,11 @@
 <template>
   <div>
     <div class="user-info">
-      <div class="avatar-big"></div>
+      <div class="avatar-big">
+        <img v-if="user.avatar !== null" :src="user.avatar" />
+      </div>
       <div class="username w-16">
-        <p>Reeyoung</p>
+        <p>{{ user.name }}</p>
       </div>
       <div class="user-option h-10 text-center">
         <div class="pay mr-6" @click="toPageInfo(0)">
@@ -53,6 +55,7 @@ export default {
         password: String,
         name: String,
         role: Number,
+        avatar: String,
         order_ids: String,
         cart_ids: String,
         created_date: String,
@@ -90,6 +93,11 @@ export default {
   width: 81px;
   height: 81px;
   border: rgba(255, 255, 255, 1);
+}
+
+.avatar-big > img {
+  border: 3px solid rgba(255, 255, 255, 1);
+  border-radius: 50%;
 }
 
 .username {

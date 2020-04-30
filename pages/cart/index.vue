@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="main-contain">
-      <van-checkbox-group v-if="carts.length === 0" v-model="result">
+      <van-checkbox-group v-if="carts.length !== 0" v-model="result">
         <div
           v-for="cart in carts"
           :key="cart.id"

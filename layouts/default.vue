@@ -103,12 +103,12 @@ export default {
         this.pageInDis = false
       }
       if (page === 'cart') {
-        if (this.getUserInfo === null) {
+        if (this.getUserInfo.name === '') {
           this.$notify({
             type: 'danger',
             message: '用户没登陆, 请先登陆~'
           })
-          this.$router.push('/user/5')
+          this.$router.push('/user/login')
         } else {
           this.$router.push('/cart')
           this.pageInMine = false

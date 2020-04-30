@@ -52,6 +52,7 @@ import { getSkuById } from '@/api/sku'
 import { createCart } from '@/api/cart'
 import { createOrder } from '@/api/order'
 import { editUserById } from '@/api/user'
+import { inject } from '@/utils/ids'
 
 import skuList from '@/components/skuList'
 
@@ -168,8 +169,12 @@ export default {
           if (user.cart_ids != null) {
             const { cart_ids: cartIds, id } = user
 
-            const ids = cartIds.trim().split(',')
-            ids.push(cartId)
+            console.log(cartIds)
+            console.log(cartId)
+
+            // const ids = cartIds.trim().split(',')
+            const ids = inject(cartIds, [cartId])
+            // ids.push(cartId)
             const newUser = { id, cart_ids: ids.toString() }
             await editUserById(this.$axios, newUser).then((res) => {
               const { code } = res

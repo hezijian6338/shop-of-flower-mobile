@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { editUserById } from '@/api/user'
 
 export default {
@@ -63,6 +64,21 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters({
+      getUserInfo: 'user/CurrentInfo'
+    })
+  },
+  created() {
+    if (this.getUserInfo.name === '') {
+      this.$notify({
+        type: 'danger',
+        message: '用户没登陆, 请先登陆~'
+      })
+      this.$router.push('/user/login')
+    }
+  },
+
   methods: {
     async editUser(userInfo) {
       // FIXME: 服务端如果修改失败, 不返回数据, 只从返回的状态码判断

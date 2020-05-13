@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="main-contain">
+    <div class="main-contain overflow-y-scroll">
       <van-checkbox-group v-if="carts.length !== 0" v-model="result">
         <div
           v-for="cart in carts"

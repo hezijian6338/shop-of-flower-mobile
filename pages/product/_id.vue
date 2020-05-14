@@ -243,6 +243,7 @@ export default {
             editUserById(this.$axios, newUser).then((res) => {
               const { code } = res
               if (code === 200) {
+                this.$store.commit('user/SET_ORDERIDS', ids.toString())
                 this.$notify({
                   type: 'primary',
                   message: '创建订单成功',
@@ -259,6 +260,7 @@ export default {
             editUserById(this.$axios, newUser).then((res) => {
               const { code } = res
               if (code === 200) {
+                this.$store.commit('user/SET_ORDERIDS', orderId)
                 this.$notify({
                   type: 'primary',
                   message: '创建订单成功',

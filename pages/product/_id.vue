@@ -169,16 +169,18 @@ export default {
           if (user.cart_ids != null) {
             const { cart_ids: cartIds, id } = user
 
-            console.log(cartIds)
-            console.log(cartId)
+            console.log(`test: ${cartIds}`)
+            console.log(`test: ${cartId}`)
 
             // const ids = cartIds.trim().split(',')
-            const ids = inject(cartIds, [cartId])
+            const ids = inject(cartIds, cartId)
+            console.log(`ids: ${ids}`)
             // ids.push(cartId)
             const newUser = { id, cart_ids: ids.toString() }
             await editUserById(this.$axios, newUser).then((res) => {
               const { code } = res
               if (code === 200) {
+                this.$store.commit('user/SET_CARTIDS', ids.toString())
                 this.$notify({
                   type: 'primary',
                   message: '成功添加购物车',
@@ -192,6 +194,7 @@ export default {
             await editUserById(this.$axios, newUser).then((res) => {
               const { code } = res
               if (code === 200) {
+                this.$store.commit('user/SET_CARTIDS', cartId)
                 this.$notify({
                   type: 'primary',
                   message: '成功添加购物车',
@@ -227,12 +230,15 @@ export default {
         if (data.result) {
           // 返回订单 id (用于页面跳转)
           const orderId = data.id
-          // TODO: 判断购物车是否为空
+          // TODO: 判断订单列表是否为空
           if (user.order_ids != null) {
             const { order_ids: orderIds, id } = user
 
-            const ids = orderIds.trim().split(',')
-            ids.push(orderId)
+            let ids = []
+            ids = inject(orderIds, orderId).concat([])
+
+            // const ids = orderIds.trim().split(',')
+            // ids.push(orderId)
             const newUser = { id, order_ids: ids.toString() }
             editUserById(this.$axios, newUser).then((res) => {
               const { code } = res

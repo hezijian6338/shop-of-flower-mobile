@@ -19,6 +19,12 @@ export const state = () => ({
 export const mutations = {
   SET_INFO: (state, userInfo) => {
     state.userInfo = userInfo
+  },
+  SET_CARTIDS: (state, cartIds) => {
+    state.userInfo.cart_ids = cartIds
+  },
+  SET_ORDERIDS: (state, orderIds) => {
+    state.userInfo.order_ids = orderIds
   }
 }
 

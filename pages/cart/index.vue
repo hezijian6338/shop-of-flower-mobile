@@ -131,7 +131,7 @@ export default {
       }
 
       // TODO: 处理订单信息
-      let orderIds = []
+      const orderIds = []
       for (const cart of this.result) {
         this.orderInfo.product_id = cart.product_id
         this.orderInfo.sku_id = cart.sku_id
@@ -142,30 +142,30 @@ export default {
         }
       }
       // 这里比较麻烦... 因为涉及到数组的判断, 和添加, 还有删除...√
-      orderIds = inject(user.order_ids, orderIds).concat([])
+      const newOrderIds = inject(user.order_ids, orderIds).concat([])
 
       // TODO: 处理购物车
       const remove = []
-      const origin = []
+      // const origin = []
       for (const item of this.result) {
         remove.push(item.id)
         await this.delCart(item.id)
       }
-      this.carts.forEach((item) => {
-        origin.push(item.id)
-      })
-      const cartIds = pass(origin, remove)
+      // this.carts.forEach((item) => {
+      //   origin.push(item.id)
+      // })
+      // const cartIds = pass(origin, remove)
 
       const newUser = {
         id: user.id,
-        cart_ids: cartIds.toString(),
-        order_ids: orderIds.toString()
+        // cart_ids: cartIds.toString(),
+        order_ids: newOrderIds.toString()
       }
 
       const { code } = await editUserById(this.$axios, newUser)
       if (code === 200) {
-        this.$store.commit('user/SET_CARTIDS', cartIds.toString())
-        this.$store.commit('user/SET_ORDERIDS', orderIds.toString())
+        // this.$store.commit('user/SET_CARTIDS', cartIds.toString())
+        this.$store.commit('user/SET_ORDERIDS', newOrderIds.toString())
         this.$notify({
           type: 'success',
           message: '添加订单成功~',
@@ -178,16 +178,26 @@ export default {
       const user = this.getUserInfo
       if (cartId !== null) {
         const { code } = await deleteCartById(this.$axios, cartId)
+        const cartIds = pass(user.cart_ids, cartId)
         if (code === 200) {
-          this.$store.commit('user/SET_CARTIDS', pass(user.cart_ids, cartId))
+          this.$store.commit('user/SET_CARTIDS', cartIds.toString())
           // 删除成功
-          this.$notify({
-            type: 'danger',
-            message: '删除成功~'
-          })
-          const { data: carts } = await getCartsByUserId(this.$axios, user.id)
-          this.carts = Object.assign({}, carts)
-          return true
+          // this.$notify({
+          //   type: 'danger',
+          //   message: '删除成功~'
+          // })
+          const newUser = {
+            id: user.id,
+            cart_ids: cartIds.toString()
+          }
+          const { code } = await editUserById(this.$axios, newUser)
+          if (code === 200) {
+            const { data: carts } = await getCartsByUserId(this.$axios, user.id)
+            this.carts = Object.assign({}, carts)
+            return true
+          }
+
+          return false
         } else {
           // 删除错误
           return false

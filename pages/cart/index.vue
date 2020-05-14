@@ -39,7 +39,7 @@
             <div v-else class="price row-span-1">¥399.00</div>
             <div class="number row-span-2">x1</div>
           </div>
-          <div class="col-span-1 pt-10">
+          <div class="col-span-1 pt-10" @click="delCart(cart.id)">
             <van-icon size="25" name="delete" />
           </div>
         </div>
@@ -64,6 +64,8 @@ export default {
     const userId = store.state.user.userInfo.id
 
     const { data: carts } = await getCartsByUserId($axios, userId)
+
+    // store.commit('user/SET_CARTIDS', carts)
 
     return { userId, carts }
   },
@@ -162,6 +164,8 @@ export default {
 
       const { code } = await editUserById(this.$axios, newUser)
       if (code === 200) {
+        this.$store.commit('user/SET_CARTIDS', cartIds.toString())
+        this.$store.commit('user/SET_ORDERIDS', orderIds.toString())
         this.$notify({
           type: 'success',
           message: '添加订单成功~',
@@ -171,14 +175,18 @@ export default {
       }
     },
     async delCart(cartId) {
+      const user = this.getUserInfo
       if (cartId !== null) {
         const { code } = await deleteCartById(this.$axios, cartId)
         if (code === 200) {
+          this.$store.commit('user/SET_CARTIDS', pass(user.cart_ids, cartId))
           // 删除成功
           this.$notify({
             type: 'danger',
             message: '删除成功~'
           })
+          const { data: carts } = await getCartsByUserId(this.$axios, user.id)
+          this.carts = Object.assign({}, carts)
           return true
         } else {
           // 删除错误

@@ -169,12 +169,12 @@ export default {
           if (user.cart_ids != null) {
             const { cart_ids: cartIds, id } = user
 
-            console.log(`test: ${cartIds}`)
-            console.log(`test: ${cartId}`)
+            // console.log(`cartIds: ${cartIds}`)
+            // console.log(`cartId: ${cartId}`)
 
             // const ids = cartIds.trim().split(',')
             const ids = inject(cartIds, cartId)
-            console.log(`ids: ${ids}`)
+            // console.log(`ids: ${ids}`)
             // ids.push(cartId)
             const newUser = { id, cart_ids: ids.toString() }
             await editUserById(this.$axios, newUser).then((res) => {

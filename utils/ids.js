@@ -19,9 +19,9 @@ export function inject(origin, insert) {
     insertArray = insert.trim().split(',')
   }
 
-  console.log(insertArray)
-  console.log(originArray)
-  console.log(insertArray.concat(originArray))
+  // console.log(insertArray)
+  // console.log(originArray)
+  // console.log(insertArray.concat(originArray))
 
   return insertArray.concat(originArray)
 }

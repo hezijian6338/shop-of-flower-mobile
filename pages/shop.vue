@@ -1,6 +1,8 @@
 <template>
   <div class="main">
-    <div class="product-list overflow-x-scroll overflow-y-hidden">
+    <div
+      class="product-list overflow-x-scroll overflow-y-hidden iphonex:w-full iphone6:w-full iphone6p:w-11/12"
+    >
       <div class="product mr-3" @click="toTagPage('single')">
         <img
           class="object-center w-16 h-16 style: padding-top: 8px"
@@ -123,6 +125,7 @@ export default {
   /* padding-top: 86px;
   padding-left: 17px; */
   /* height: 91px; */
+  margin: 0 auto;
   white-space: nowrap;
 }
 
@@ -153,7 +156,7 @@ export default {
 
 .location {
   margin-top: 21px;
-  width: 310px;
+  /* width: 310px; */
   height: 45px;
   background: rgba(255, 255, 255, 1);
   border-radius: 10px 10px 10px 10px;

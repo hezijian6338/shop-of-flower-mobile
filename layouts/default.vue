@@ -185,7 +185,7 @@ export default {
 .main-contain {
   margin-left: 49px;
   /* padding-bottom: 50px; */
-  width: 326px;
+  /* width: 326px; */
   height: 94vh;
   background: rgba(211, 227, 229, 1);
   border-radius: 0px 0px 0px 25px;

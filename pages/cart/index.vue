@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="main-contain overflow-y-scroll">
+    <div class="main-contain overflow-y-scroll iphonex:h-v72  iphone6p:h-v72">
       <van-checkbox-group v-if="carts.length !== 0" v-model="result">
         <div
           v-for="cart in carts"
@@ -212,7 +212,7 @@ export default {
 .main-contain {
   margin: 0 auto;
   width: 307px;
-  height: 72vh;
+  /* height: 72vh; */
   background: rgba(255, 255, 255, 1);
   border-radius: 15px;
 }

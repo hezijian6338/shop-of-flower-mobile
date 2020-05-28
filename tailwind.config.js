@@ -14,6 +14,11 @@ module.exports = {
     },
     container: {
       center: true
+    },
+    height: {
+      v70: '70vh',
+      v72: '72vh',
+      v74: '74vh'
     }
   },
   variants: {},

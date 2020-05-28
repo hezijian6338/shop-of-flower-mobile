@@ -212,7 +212,7 @@ export default {
 .main-contain {
   margin: 0 auto;
   width: 307px;
-  height: 75vh;
+  height: 72vh;
   background: rgba(255, 255, 255, 1);
   border-radius: 15px;
 }
